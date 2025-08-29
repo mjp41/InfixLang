@@ -1,0 +1,3 @@
+struct None
+struct Some[P] (value: P)
+type Option[P] = None | Some[P]

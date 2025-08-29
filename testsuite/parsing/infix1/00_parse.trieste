@@ -1,0 +1,122 @@
+infix
+parse
+(top
+  {}
+  (file
+    (group
+      (function
+        {})
+      (name 5:abort)
+      (Colon)
+      (name 1:T)
+      (eq)
+      (name 5:abort))
+    (group
+      (function
+        {})
+      (paren
+        (group
+          (name 1:a)
+          (Colon)
+          (name 3:Int)))
+      (name 1:+)
+      (paren
+        (group
+          (name 1:b)
+          (Colon)
+          (name 3:Int)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (name 5:abort))
+    (group
+      (function
+        {})
+      (name 4:test)
+      (paren
+        (group
+          (name 1:a)
+          (Colon)
+          (name 3:Int)))
+      (paren
+        (group
+          (name 1:b)
+          (Colon)
+          (name 3:Int)))
+      (paren
+        (group
+          (name 1:c)
+          (Colon)
+          (name 3:Int)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (name 1:a)
+          (name 1:+)
+          (name 1:b)
+          (name 1:+)
+          (name 1:c))))
+    (group
+      (function
+        {})
+      (name 4:test)
+      (paren
+        (group
+          (name 1:a)
+          (Colon)
+          (name 3:Int)))
+      (paren
+        (group
+          (name 1:b)
+          (Colon)
+          (name 3:Int)))
+      (paren
+        (group
+          (name 1:c)
+          (Colon)
+          (name 3:Int)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (paren
+            (group
+              (name 1:a)
+              (name 1:+)
+              (name 1:b)))
+          (name 1:+)
+          (name 1:c))))
+    (group
+      (function
+        {})
+      (name 4:test)
+      (paren
+        (group
+          (name 1:a)
+          (Colon)
+          (name 3:Int)))
+      (paren
+        (group
+          (name 1:b)
+          (Colon)
+          (name 3:Int)))
+      (paren
+        (group
+          (name 1:c)
+          (Colon)
+          (name 3:Int)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (name 1:a)
+          (name 1:+)
+          (paren
+            (group
+              (name 1:b)
+              (name 1:+)
+              (name 1:c))))))))

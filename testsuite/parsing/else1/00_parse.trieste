@@ -1,0 +1,85 @@
+infix
+parse
+(top
+  {}
+  (file
+    (group
+      (struct
+        {})
+      (name 4:True))
+    (group
+      (struct
+        {})
+      (name 5:False))
+    (group
+      (type_alias)
+      (name 4:Bool)
+      (eq)
+      (name 4:True)
+      (name 1:|)
+      (name 5:False))
+    (group
+      (struct
+        {})
+      (name 4:None))
+    (group
+      (struct
+        {})
+      (name 4:Some)
+      (square
+        (group
+          (name 1:P)))
+      (indent
+        (group
+          (name 5:value)
+          (Colon)
+          (name 1:P))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (paren
+        (group
+          (name 3:lhs)
+          (Colon)
+          (name 4:Some)
+          (square
+            (group
+              (name 1:P)))))
+      (name 4:else)
+      (paren
+        (group
+          (name 5:value)
+          (Colon)
+          (hat)
+          (name 1:P)))
+      (Colon)
+      (name 1:P)
+      (eq)
+      (name 3:lhs)
+      (dot)
+      (name 5:value))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (paren
+        (group
+          (name 3:lhs)
+          (Colon)
+          (name 4:None)))
+      (name 4:else)
+      (paren
+        (group
+          (name 5:value)
+          (Colon)
+          (hat)
+          (name 1:P)))
+      (Colon)
+      (name 1:P)
+      (eq)
+      (name 5:value))))

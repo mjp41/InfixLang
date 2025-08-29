@@ -1,0 +1,11 @@
+struct True
+struct False
+
+type Bool = True | False
+
+struct None
+struct Some[P]
+  value: P
+
+function[P] (lhs: Some[P]) else (value: ^P) : P = lhs.value
+function[P] (lhs: None) else (value: ^P) : P = value

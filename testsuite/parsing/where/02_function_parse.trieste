@@ -1,0 +1,101 @@
+infix
+function_parse
+(top
+  {
+    == = function
+    Bool = type_alias
+    Cell = struct
+    False = struct
+    True = struct}
+  (file
+    (struct
+      {}
+      (name 4:True)
+      (type_params)
+      (fields))
+    (struct
+      {}
+      (name 5:False)
+      (type_params)
+      (fields))
+    (type_alias
+      (name 4:Bool)
+      (type_params)
+      (type
+        (name 4:True)
+        (name 1:|)
+        (name 5:False)))
+    (struct
+      {
+        P = type_param
+        value = field}
+      (name 4:Cell)
+      (type_params
+        (type_param
+          (name 1:P)))
+      (fields
+        (field
+          (name 5:value)
+          (type
+            (name 1:P)))))
+    (function
+      {
+        P = type_param
+        cell1 = param
+        cell2 = param}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs
+        (param
+          (name 5:cell1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (name 2:==)
+      (rhs
+        (param
+          (name 5:cell2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Bool))
+      (where
+        (name 2:==)
+        (Colon)
+        (name 1:P)
+        (arrow)
+        (name 4:Bool)
+        (left_arrow)
+        (name 1:P))
+      (body
+        (expr_stack)
+        (group
+          (name 2:if)
+          (paren
+            (lookup
+              (group
+                (name 5:cell1))
+              (name 5:value))
+            (name 2:==)
+            (lookup
+              (group
+                (name 5:cell2))
+              (name 5:value)))
+          (indent
+            (group
+              (name 4:True))))
+        (group
+          (name 4:else)
+          (indent
+            (group
+              (name 5:False))))))))

@@ -1,0 +1,14 @@
+struct True
+struct False
+
+type Bool = True | False
+
+struct Cell[P]
+  value: P
+
+function[P] (cell1: Cell[P]) == (cell2: Cell[P]) : Bool where ==: P -> Bool <- P 
+  =
+  if (cell1.value == cell2.value)
+    True
+  else
+    False

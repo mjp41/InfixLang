@@ -1,0 +1,13 @@
+function abort : T = abort
+function (a: Int) + (b: Int) : Int = abort
+
+function test (a : Int) (b: Int) (c: Int): Int =
+  a + b + c
+
+# Same as first
+function test (a : Int) (b: Int) (c: Int): Int =
+  (a + b) + c
+
+# Different from the first
+function test (a : Int) (b: Int) (c: Int): Int =
+  a + (b + c)

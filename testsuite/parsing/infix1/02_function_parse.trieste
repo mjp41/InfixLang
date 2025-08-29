@@ -1,0 +1,168 @@
+infix
+function_parse
+(top
+  {
+    + = function
+    abort = function
+    test =
+      function
+      function
+      function}
+  (file
+    (function
+      {}
+      (type_params)
+      (lhs)
+      (name 5:abort)
+      (rhs)
+      (type
+        (name 1:T))
+      (where)
+      (body
+        (expr_stack)
+        (name 5:abort)))
+    (function
+      {
+        a = param
+        b = param}
+      (type_params)
+      (lhs
+        (param
+          (name 1:a)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (name 1:+)
+      (rhs
+        (param
+          (name 1:b)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (name 5:abort)))
+    (function
+      {
+        a = param
+        b = param
+        c = param}
+      (type_params)
+      (lhs)
+      (name 4:test)
+      (rhs
+        (param
+          (name 1:a)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 1:b)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 1:c)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (name 1:a)
+            (name 1:+)
+            (name 1:b)
+            (name 1:+)
+            (name 1:c)))))
+    (function
+      {
+        a = param
+        b = param
+        c = param}
+      (type_params)
+      (lhs)
+      (name 4:test)
+      (rhs
+        (param
+          (name 1:a)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 1:b)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 1:c)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (paren
+              (name 1:a)
+              (name 1:+)
+              (name 1:b))
+            (name 1:+)
+            (name 1:c)))))
+    (function
+      {
+        a = param
+        b = param
+        c = param}
+      (type_params)
+      (lhs)
+      (name 4:test)
+      (rhs
+        (param
+          (name 1:a)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 1:b)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 1:c)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (name 1:a)
+            (name 1:+)
+            (paren
+              (name 1:b)
+              (name 1:+)
+              (name 1:c))))))))

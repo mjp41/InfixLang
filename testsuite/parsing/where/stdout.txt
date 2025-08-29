@@ -1,0 +1,14 @@
+Errors:
+Name '(name 2:if)' is not defined
+-- where.infix:9:57
+                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~
+function[P] (cell1: Cell[P]) == (cell2: Cell[P]) : Bool where ==: P -> Bool <- P 
+  =
+  if (cell1.value == cell2.value)
+    True
+  else
+    False
+~~~~~~~~~
+
+Pass infix_parse failed with 1 error!
+

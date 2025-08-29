@@ -1,0 +1,34 @@
+infix
+parse
+(top
+  {}
+  (file
+    (group
+      (struct
+        {})
+      (name 4:None))
+    (group
+      (struct
+        {})
+      (name 4:Some)
+      (square
+        (group
+          (name 1:P)))
+      (paren
+        (group
+          (name 5:value)
+          (Colon)
+          (name 1:P))))
+    (group
+      (type_alias)
+      (name 6:Option)
+      (square
+        (group
+          (name 1:P)))
+      (eq)
+      (name 4:None)
+      (name 1:|)
+      (name 4:Some)
+      (square
+        (group
+          (name 1:P))))))

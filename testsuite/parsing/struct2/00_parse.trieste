@@ -1,0 +1,13 @@
+infix
+parse
+(top
+  {}
+  (file
+    (group
+      (struct
+        {})
+      (name 4:True))
+    (group
+      (struct
+        {})
+      (name 5:False))))

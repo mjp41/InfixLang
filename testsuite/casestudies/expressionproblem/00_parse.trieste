@@ -1,0 +1,326 @@
+infix
+parse
+(top
+  {}
+  (file
+    (group
+      (struct
+        {})
+      (name 3:Add)
+      (square
+        (group
+          (name 4:Expr)))
+      (indent
+        (group
+          (name 4:left)
+          (Colon)
+          (name 4:Expr))
+        (group
+          (name 5:right)
+          (Colon)
+          (name 4:Expr))))
+    (group
+      (struct
+        {})
+      (name 3:Sub)
+      (square
+        (group
+          (name 4:Expr)))
+      (indent
+        (group
+          (name 4:left)
+          (Colon)
+          (name 4:Expr))
+        (group
+          (name 5:right)
+          (Colon)
+          (name 4:Expr))))
+    (group
+      (struct
+        {})
+      (name 10:IntLiteral)
+      (indent
+        (group
+          (name 5:value)
+          (Colon)
+          (name 3:Int))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:T)))
+      (name 5:abort)
+      (Colon)
+      (name 1:T)
+      (eq)
+      (name 5:abort))
+    (group
+      (function
+        {})
+      (paren
+        (group
+          (name 1:x)
+          (Colon)
+          (name 3:Int)))
+      (name 1:+)
+      (paren
+        (group
+          (name 1:y)
+          (Colon)
+          (name 3:Int)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (name 5:abort))
+    (group
+      (function
+        {})
+      (paren
+        (group
+          (name 1:x)
+          (Colon)
+          (name 3:Int)))
+      (name 1:-)
+      (paren
+        (group
+          (name 1:y)
+          (Colon)
+          (name 3:Int)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (name 5:abort))
+    (group
+      (function
+        {})
+      (paren
+        (group
+          (name 1:x)
+          (Colon)
+          (name 3:Int)))
+      (name 1:*)
+      (paren
+        (group
+          (name 1:y)
+          (Colon)
+          (name 3:Int)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (name 5:abort))
+    (group
+      (type_alias)
+      (name 4:Expr)
+      (eq)
+      (name 3:Add)
+      (square
+        (group
+          (name 4:Expr)))
+      (name 1:|)
+      (name 3:Sub)
+      (square
+        (group
+          (name 4:Expr)))
+      (name 1:|)
+      (name 10:IntLiteral))
+    (group
+      (function
+        {})
+      (name 4:eval)
+      (paren
+        (group
+          (name 4:expr)
+          (Colon)
+          (name 10:IntLiteral)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (name 4:expr)
+      (dot)
+      (name 5:value))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:E)))
+      (name 4:eval)
+      (paren
+        (group
+          (name 4:expr)
+          (Colon)
+          (name 3:Add)
+          (square
+            (group
+              (name 1:E)))))
+      (Colon)
+      (name 3:Int)
+      (where)
+      (name 4:eval)
+      (Colon)
+      (name 3:Int)
+      (left_arrow)
+      (name 1:E)
+      (eq)
+      (indent
+        (group
+          (name 4:eval)
+          (paren
+            (group
+              (name 4:expr)
+              (dot)
+              (name 4:left)))
+          (name 1:+)
+          (name 4:eval)
+          (paren
+            (group
+              (name 4:expr)
+              (dot)
+              (name 5:right))))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:E)))
+      (name 4:eval)
+      (paren
+        (group
+          (name 4:expr)
+          (Colon)
+          (name 3:Sub)
+          (square
+            (group
+              (name 1:E)))))
+      (Colon)
+      (name 3:Int)
+      (where)
+      (name 4:eval)
+      (Colon)
+      (name 3:Int)
+      (left_arrow)
+      (name 1:E)
+      (eq)
+      (indent
+        (group
+          (name 4:eval)
+          (paren
+            (group
+              (name 4:expr)
+              (dot)
+              (name 4:left)))
+          (name 1:-)
+          (name 4:eval)
+          (paren
+            (group
+              (name 4:expr)
+              (dot)
+              (name 5:right))))))
+    (group
+      (struct
+        {})
+      (name 3:Mul)
+      (square
+        (group
+          (name 4:Expr)))
+      (indent
+        (group
+          (name 4:left)
+          (Colon)
+          (name 4:Expr))
+        (group
+          (name 5:right)
+          (Colon)
+          (name 4:Expr))))
+    (group
+      (type_alias)
+      (name 5:Expr2)
+      (eq)
+      (name 3:Add)
+      (square
+        (group
+          (name 5:Expr2)))
+      (name 1:|)
+      (name 3:Sub)
+      (square
+        (group
+          (name 5:Expr2)))
+      (name 1:|)
+      (name 3:Mul)
+      (square
+        (group
+          (name 5:Expr2)))
+      (name 1:|)
+      (name 3:Int))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:E)))
+      (name 4:eval)
+      (paren
+        (group
+          (name 4:expr)
+          (Colon)
+          (name 3:Mul)
+          (square
+            (group
+              (name 1:E)))))
+      (Colon)
+      (name 3:Int)
+      (where)
+      (name 4:eval)
+      (Colon)
+      (name 3:Int)
+      (left_arrow)
+      (name 1:E)
+      (eq)
+      (indent
+        (group
+          (name 4:eval)
+          (paren
+            (group
+              (name 4:expr)
+              (dot)
+              (name 4:left)))
+          (name 1:*)
+          (name 4:eval)
+          (paren
+            (group
+              (name 4:expr)
+              (dot)
+              (name 5:right))))))
+    (group
+      (function
+        {})
+      (name 5:test1)
+      (paren
+        (group
+          (name 1:x)
+          (Colon)
+          (name 4:Expr)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (name 4:eval)
+          (name 1:x))))
+    (group
+      (function
+        {})
+      (name 5:test2)
+      (paren
+        (group
+          (name 1:x)
+          (Colon)
+          (name 5:Expr2)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (name 4:eval)
+          (name 1:x))))))

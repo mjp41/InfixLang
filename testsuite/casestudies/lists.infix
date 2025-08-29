@@ -1,0 +1,37 @@
+struct True
+struct False
+
+type Bool = True | False
+
+struct None
+struct Some[P]
+  value: P
+
+function[P] if (condition: True) (thenBranch: ^P) : Option[P] = Some thenBranch
+function[P] if (condition: False) (thenBranch: ^P) : Option[P] = None
+
+function not (b: True) : False = False
+function not (b: False) : True = True
+
+function[P] (lhs: Some[P]) else (value: ^P) : P = lhs.value
+function[P] (lhs: None) else (value: ^P) : P = value
+
+function[T] abort : T = abort
+
+function (i: Int) toString : String = abort
+
+struct EmptyList
+struct ListNode[T]
+  value: T
+  next: List[T]
+type List[T] = EmptyList | ListNode[T]
+
+function (l : EmptyList) isEmpty : Bool = True
+function[T] (l: ListNode[T]) isEmpty : Bool = False
+
+function[T] test (l : List[T]): None =
+  if (l isEmpty)
+    True
+  else
+    False
+

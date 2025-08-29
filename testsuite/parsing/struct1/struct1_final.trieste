@@ -1,0 +1,10 @@
+infix
+infix_parse
+(top
+  {}
+  (file
+    (struct
+      {}
+      (name 4:True)
+      (type_params)
+      (fields))))

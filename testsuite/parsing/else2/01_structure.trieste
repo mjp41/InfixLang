@@ -1,0 +1,91 @@
+infix
+structure
+(top
+  {}
+  (file
+    (struct
+      {}
+      (name 4:True)
+      (type_params)
+      (fields))
+    (struct
+      {}
+      (name 5:False)
+      (type_params)
+      (fields))
+    (type_alias
+      (name 4:Bool)
+      (type_params)
+      (type
+        (name 4:True)
+        (name 1:|)
+        (name 5:False)))
+    (struct
+      {}
+      (name 4:None)
+      (type_params)
+      (fields))
+    (struct
+      {}
+      (name 4:Some)
+      (type_params
+        (group
+          (name 1:P)))
+      (fields
+        (field
+          (name 5:value)
+          (type
+            (name 1:P)))))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P)))
+      (indent
+        (group
+          (name 3:lhs)
+          (Colon)
+          (name 4:Some)
+          (square
+            (group
+              (name 1:P)))))
+      (indent
+        (group
+          (name 4:else)
+          (indent
+            (group
+              (name 5:value)
+              (Colon)
+              (hat)
+              (name 1:P))))
+        (group
+          (Colon)
+          (name 1:P)
+          (eq)
+          (lookup
+            (group
+              (name 3:lhs))
+            (name 5:value)))))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P)))
+      (indent
+        (group
+          (name 3:lhs)
+          (Colon)
+          (name 4:None))
+        (group
+          (name 4:else))
+        (group
+          (name 5:value)
+          (Colon)
+          (hat)
+          (name 1:P))
+        (group
+          (Colon)
+          (name 1:P))
+        (group
+          (eq)
+          (name 5:value))))))

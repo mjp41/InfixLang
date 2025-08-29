@@ -1,0 +1,4 @@
+struct True
+struct False
+
+type Bool = True | False

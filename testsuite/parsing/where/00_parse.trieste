@@ -1,0 +1,87 @@
+infix
+parse
+(top
+  {}
+  (file
+    (group
+      (struct
+        {})
+      (name 4:True))
+    (group
+      (struct
+        {})
+      (name 5:False))
+    (group
+      (type_alias)
+      (name 4:Bool)
+      (eq)
+      (name 4:True)
+      (name 1:|)
+      (name 5:False))
+    (group
+      (struct
+        {})
+      (name 4:Cell)
+      (square
+        (group
+          (name 1:P)))
+      (indent
+        (group
+          (name 5:value)
+          (Colon)
+          (name 1:P))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (paren
+        (group
+          (name 5:cell1)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (name 2:==)
+      (paren
+        (group
+          (name 5:cell2)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (Colon)
+      (name 4:Bool)
+      (where)
+      (name 2:==)
+      (Colon)
+      (name 1:P)
+      (arrow)
+      (name 4:Bool)
+      (left_arrow)
+      (name 1:P)
+      (indent
+        (group
+          (eq))
+        (group
+          (name 2:if)
+          (paren
+            (group
+              (name 5:cell1)
+              (dot)
+              (name 5:value)
+              (name 2:==)
+              (name 5:cell2)
+              (dot)
+              (name 5:value)))
+          (indent
+            (group
+              (name 4:True))))
+        (group
+          (name 4:else)
+          (indent
+            (group
+              (name 5:False))))))))

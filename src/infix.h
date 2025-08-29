@@ -3,12 +3,13 @@
 namespace infix {
 using namespace trieste;
 
-inline const auto Instance = TokenDef("instance");
-inline const auto Operator =
-    TokenDef("operator", flag::lookup | flag::lookdown);
-inline const auto Struct = TokenDef("struct");
-inline const auto Type = TokenDef("type");
+inline const auto Function =
+    TokenDef("function", flag::lookup | flag::lookdown | flag::symtab);
+inline const auto Struct = TokenDef("struct", flag::symtab | flag::lookup);
+inline const auto Type = TokenDef("type", flag::lookup);
+inline const auto TypeAlias = TokenDef("type_alias");
 inline const auto Where = TokenDef("where");
+inline const auto Module = TokenDef("module", flag::symtab | flag::lookup | flag::lookdown);
 inline const auto Eq = TokenDef("eq");
 inline const auto Let = TokenDef("let");
 inline const auto Or = TokenDef("or");
@@ -24,9 +25,19 @@ inline const auto Square = TokenDef("square");
 inline const auto Hat = TokenDef("hat");
 inline const auto Underscore = TokenDef("underscore");
 inline const auto Arrow = TokenDef("arrow");
+inline const auto LeftArrow = TokenDef("left_arrow");
 inline const auto Backtick = TokenDef("Backtick");
 
-inline const auto Var = TokenDef("var", flag::print);
+inline const auto Mode = TokenDef("mode");
+inline const auto CBN = TokenDef("cbn");
+inline const auto CBV = TokenDef("cbv");
+inline const auto Call = TokenDef("call");
+inline const auto PartialCall = TokenDef("partial_call");
+inline const auto Create = TokenDef("create");
+inline const auto PartialCreate = TokenDef("partial_create");
+inline const auto Args = TokenDef("args");
+
+inline const auto Name = TokenDef("name", flag::print);
 inline const auto String = TokenDef("string", flag::print);
 
 inline const auto Class = TokenDef("class");
@@ -39,12 +50,23 @@ inline const auto Rhs = TokenDef("rhs");
 inline const auto True = TokenDef("true");
 inline const auto False = TokenDef("false");
 
+inline const auto TypeParam = TokenDef("type_param", flag::lookup);
+inline const auto TypeParams = TokenDef("type_params");
+inline const auto Fields = TokenDef("fields");
+inline const auto Field = TokenDef("field", flag::lookup);
+inline const auto Params = TokenDef("params");
+inline const auto Param = TokenDef("param", flag::lookup);
+inline const auto Body = TokenDef("body");
+inline const auto Expr = TokenDef("expr");
+inline const auto Lookup = TokenDef("lookup");
+inline const auto ExprStack = TokenDef("expr_stack");
+
 inline const auto OperatorDef =
     TokenDef("operator_def", flag::lookup | flag::lookdown);
 
 using namespace wf::ops;
 inline const auto wf_parse_tokens =
-    Group | File | Top | Var | Struct | Paren | Square | Instance | Operator |
+    Group | File | Top | Name | Struct | Paren | Square | Function |
     Type | Where | Eq | Let | Or | And | Indent | Colon | Comma | Dot | Paren |
     Square | Underscore | Arrow | Backtick | String | Hat;
 
@@ -54,7 +76,7 @@ inline const auto wf_parser =
     (Indent <<= wf_parse_tokens++);
 
 inline const auto wf_parse_tokens_no_op =
-    Group | File | Top | Var | Struct | Paren | Square | Instance | Type |
+    Group | File | Top | Name | Struct | Paren | Square | Function | Type |
     Where | Eq | Let | Or | And | Indent | Colon | Comma | Dot | Paren |
     Square | Underscore | Arrow | Backtick | String | Hat;
 
@@ -62,26 +84,56 @@ inline const auto wf_operator_defn =
     (Top <<= File) | (File <<= (Group | OperatorDef)++) | (Paren <<= wf_parse_tokens_no_op++) |
     (Square <<= wf_parse_tokens_no_op++) | (Group <<= wf_parse_tokens_no_op++) |
     (Indent <<= wf_parse_tokens++)
-    | (OperatorDef <<= Var * Lhs * Rhs)[Var]
+    | (OperatorDef <<= Name * Lhs * Rhs)[Name]
     | (Lhs <<= Underscore++)
     | (Rhs <<= Underscore++);
 
-// inline const auto wf_term = Paren | Var | Group | App;
+// inline const auto wf_term = Paren | Name | Group | App;
 
 // inline const auto wf_structure =
 //   (Top <<= File)
 //   | (File <<= Group++)
 //   | (Paren <<= wf_term++)
 //   | (Group <<= (Class | Fun | Infix | wf_term)++)
-//   | (Fun <<= Var * Params * Body)[Var]
-//   | (Infix <<= Var * Params * Body)[Var]
-//   | (Class <<= Var * Body)[Var]
+//   | (Fun <<= Name * Params * Body)[Name]
+//   | (Infix <<= Name * Params * Body)[Name]
+//   | (Class <<= Name * Body)[Name]
 //   | (Params <<= Param++)
-//   | (Param <<= Var * Kind)[Var]
+//   | (Param <<= Name * Kind)[Name]
 //   | (Kind <<= Value | Lazy | Type)
 //   | (Body <<= wf_term++)
 //   | (App <<= wf_term++)
 // ;
+
+inline const auto wf_decls = Struct | TypeAlias | Function;
+
+inline const auto wf_term = Paren | Name | Group | Indent | Dot | Arrow | LeftArrow | Colon | Lookup;
+
+inline const auto wf_function_parse =
+  (Top <<= File)
+  | (File <<= wf_decls++)
+  | (Struct <<= Name * TypeParams * Fields)[Name]
+  | (TypeAlias <<= Name * TypeParams * Type)[Name]
+  | (Paren <<= (wf_decls | wf_term)++)
+  | (Indent <<= (wf_decls | wf_term)++)
+  | (Group <<= (wf_decls | wf_term)++)
+  | (Function <<= TypeParams * Lhs * Name * Rhs * Type * Where * Body)[Name]
+  | (Body <<= (ExprStack | wf_term)++)
+  | (Type <<= (Name | Square | Arrow)++)
+  | (Lhs <<= Param++)
+  | (Rhs <<= Param++)
+  | (Lookup <<= Group * Name)
+  | (Param <<= Name * Mode * Type)[Name]
+  | (Mode <<= CBN | CBV)
+  | (TypeParams <<= TypeParam++)
+  | (TypeParam <<= Name)[Name]
+  | (Square <<= wf_term++)
+  | (Fields <<= Field++)
+  | (Field <<= Name * Type)[Name]
+  | (Where <<= wf_term++)
+;
+
+
 Parse parser();
 std::vector<Pass> passes();
 } // namespace infix

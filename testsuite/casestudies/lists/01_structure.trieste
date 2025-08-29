@@ -1,0 +1,263 @@
+infix
+structure
+(top
+  {}
+  (file
+    (struct
+      {}
+      (name 4:True)
+      (type_params)
+      (fields))
+    (struct
+      {}
+      (name 5:False)
+      (type_params)
+      (fields))
+    (type_alias
+      (name 4:Bool)
+      (type_params)
+      (type
+        (name 4:True)
+        (name 1:|)
+        (name 5:False)))
+    (struct
+      {}
+      (name 4:None)
+      (type_params)
+      (fields))
+    (struct
+      {}
+      (name 4:Some)
+      (type_params
+        (group
+          (name 1:P)))
+      (fields
+        (field
+          (name 5:value)
+          (type
+            (name 1:P)))))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P)))
+      (name 2:if)
+      (paren
+        (name 9:condition)
+        (Colon)
+        (name 4:True))
+      (paren
+        (name 10:thenBranch)
+        (Colon)
+        (hat)
+        (name 1:P))
+      (Colon)
+      (name 6:Option)
+      (square
+        (group
+          (name 1:P)))
+      (eq)
+      (name 4:Some)
+      (name 10:thenBranch))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P)))
+      (name 2:if)
+      (paren
+        (name 9:condition)
+        (Colon)
+        (name 5:False))
+      (paren
+        (name 10:thenBranch)
+        (Colon)
+        (hat)
+        (name 1:P))
+      (Colon)
+      (name 6:Option)
+      (square
+        (group
+          (name 1:P)))
+      (eq)
+      (name 4:None))
+    (function
+      {}
+      (name 3:not)
+      (paren
+        (name 1:b)
+        (Colon)
+        (name 4:True))
+      (Colon)
+      (name 5:False)
+      (eq)
+      (name 5:False))
+    (function
+      {}
+      (name 3:not)
+      (paren
+        (name 1:b)
+        (Colon)
+        (name 5:False))
+      (Colon)
+      (name 4:True)
+      (eq)
+      (name 4:True))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P)))
+      (paren
+        (name 3:lhs)
+        (Colon)
+        (name 4:Some)
+        (square
+          (group
+            (name 1:P))))
+      (name 4:else)
+      (paren
+        (name 5:value)
+        (Colon)
+        (hat)
+        (name 1:P))
+      (Colon)
+      (name 1:P)
+      (eq)
+      (lookup
+        (group
+          (name 3:lhs))
+        (name 5:value)))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P)))
+      (paren
+        (name 3:lhs)
+        (Colon)
+        (name 4:None))
+      (name 4:else)
+      (paren
+        (name 5:value)
+        (Colon)
+        (hat)
+        (name 1:P))
+      (Colon)
+      (name 1:P)
+      (eq)
+      (name 5:value))
+    (function
+      {}
+      (square
+        (group
+          (name 1:T)))
+      (name 5:abort)
+      (Colon)
+      (name 1:T)
+      (eq)
+      (name 5:abort))
+    (function
+      {}
+      (paren
+        (name 1:i)
+        (Colon)
+        (name 3:Int))
+      (name 8:toString)
+      (Colon)
+      (name 6:String)
+      (eq)
+      (name 5:abort))
+    (struct
+      {}
+      (name 9:EmptyList)
+      (type_params)
+      (fields))
+    (struct
+      {}
+      (name 8:ListNode)
+      (type_params
+        (group
+          (name 1:T)))
+      (fields
+        (field
+          (name 5:value)
+          (type
+            (name 1:T)))
+        (field
+          (name 4:next)
+          (type
+            (name 4:List)
+            (square
+              (group
+                (name 1:T)))))))
+    (type_alias
+      (name 4:List)
+      (type_params
+        (group
+          (name 1:T)))
+      (type
+        (name 9:EmptyList)
+        (name 1:|)
+        (name 8:ListNode)
+        (square
+          (group
+            (name 1:T)))))
+    (function
+      {}
+      (paren
+        (name 1:l)
+        (Colon)
+        (name 9:EmptyList))
+      (name 7:isEmpty)
+      (Colon)
+      (name 4:Bool)
+      (eq)
+      (name 4:True))
+    (function
+      {}
+      (square
+        (group
+          (name 1:T)))
+      (paren
+        (name 1:l)
+        (Colon)
+        (name 8:ListNode)
+        (square
+          (group
+            (name 1:T))))
+      (name 7:isEmpty)
+      (Colon)
+      (name 4:Bool)
+      (eq)
+      (name 5:False))
+    (function
+      {}
+      (square
+        (group
+          (name 1:T)))
+      (name 4:test)
+      (paren
+        (name 1:l)
+        (Colon)
+        (name 4:List)
+        (square
+          (group
+            (name 1:T))))
+      (Colon)
+      (name 4:None)
+      (eq)
+      (indent
+        (group
+          (name 2:if)
+          (paren
+            (name 1:l)
+            (name 7:isEmpty))
+          (indent
+            (group
+              (name 4:True))))
+        (group
+          (name 4:else)
+          (indent
+            (group
+              (name 5:False))))))))

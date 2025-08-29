@@ -1,0 +1,11 @@
+struct True
+struct False
+
+type Bool = True | False
+
+struct None
+struct Some[P]
+  value: P
+
+function[P] if (condition: True) (thenBranch: ^P) : Option[P] = Some thenBranch
+function[P] if (condition: False) (thenBranch: ^P) : Option[P] = None

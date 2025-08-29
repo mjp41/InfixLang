@@ -1,0 +1,104 @@
+infix
+structure
+(top
+  {}
+  (file
+    (function
+      {}
+      (name 5:abort)
+      (Colon)
+      (name 1:T)
+      (eq)
+      (name 5:abort))
+    (function
+      {}
+      (paren
+        (name 1:a)
+        (Colon)
+        (name 3:Int))
+      (name 1:+)
+      (paren
+        (name 1:b)
+        (Colon)
+        (name 3:Int))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (name 5:abort))
+    (function
+      {}
+      (name 4:test)
+      (paren
+        (name 1:a)
+        (Colon)
+        (name 3:Int))
+      (paren
+        (name 1:b)
+        (Colon)
+        (name 3:Int))
+      (paren
+        (name 1:c)
+        (Colon)
+        (name 3:Int))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (name 1:a)
+          (name 1:+)
+          (name 1:b)
+          (name 1:+)
+          (name 1:c))))
+    (function
+      {}
+      (name 4:test)
+      (paren
+        (name 1:a)
+        (Colon)
+        (name 3:Int))
+      (paren
+        (name 1:b)
+        (Colon)
+        (name 3:Int))
+      (paren
+        (name 1:c)
+        (Colon)
+        (name 3:Int))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (paren
+            (name 1:a)
+            (name 1:+)
+            (name 1:b))
+          (name 1:+)
+          (name 1:c))))
+    (function
+      {}
+      (name 4:test)
+      (paren
+        (name 1:a)
+        (Colon)
+        (name 3:Int))
+      (paren
+        (name 1:b)
+        (Colon)
+        (name 3:Int))
+      (paren
+        (name 1:c)
+        (Colon)
+        (name 3:Int))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (name 1:a)
+          (name 1:+)
+          (paren
+            (name 1:b)
+            (name 1:+)
+            (name 1:c)))))))

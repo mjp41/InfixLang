@@ -1,0 +1,50 @@
+# Basic syntax.  Uses generics to enable extension
+struct Add[Expr]
+  left: Expr
+  right: Expr
+struct Sub[Expr]
+  left: Expr
+  right: Expr
+struct IntLiteral
+  value: Int
+
+function[T] abort : T = abort
+
+function (x: Int) + (y: Int) : Int = abort
+function (x: Int) - (y: Int) : Int = abort
+function (x: Int) * (y: Int) : Int = abort
+
+
+
+# Closes the expression to a fixed set of things.
+type Expr = Add[Expr] | Sub[Expr] | IntLiteral
+
+# Add some evaluation to the expression.
+# This is open as uses generics.
+function eval (expr: IntLiteral) : Int = expr.value
+function[E] eval (expr: Add[E]) : Int where eval: Int <- E =
+  eval(expr.left) + eval(expr.right)
+function[E] eval (expr: Sub[E]) : Int where eval: Int <- E =
+  eval(expr.left) - eval(expr.right)
+
+
+
+# Extend with multiplication
+struct Mul[Expr]
+  left: Expr
+  right: Expr
+
+# Build a new expression type that includes multiplication
+type Expr2 = Add[Expr2] | Sub[Expr2] | Mul[Expr2] | Int
+
+# Extend evaluation to handle multiplication
+function[E] eval (expr: Mul[E]) : Int where eval: Int <- E =
+  eval(expr.left) * eval(expr.right)
+
+# Now we have evaluation for both Expr and Expr2
+
+function test1 (x : Expr) : Int =
+  eval x
+
+function test2 (x : Expr2) : Int =
+  eval x

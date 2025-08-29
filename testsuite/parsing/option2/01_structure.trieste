@@ -1,0 +1,33 @@
+infix
+structure
+(top
+  {}
+  (file
+    (struct
+      {}
+      (name 4:None)
+      (type_params)
+      (fields))
+    (struct
+      {}
+      (name 4:Some)
+      (type_params
+        (group
+          (name 1:P)))
+      (fields
+        (field
+          (name 5:value)
+          (type
+            (name 1:P)))))
+    (type_alias
+      (name 6:Option)
+      (type_params
+        (group
+          (name 1:P)))
+      (type
+        (name 4:None)
+        (name 1:|)
+        (name 4:Some)
+        (square
+          (group
+            (name 1:P)))))))

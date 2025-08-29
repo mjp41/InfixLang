@@ -1,0 +1,302 @@
+infix
+structure
+(top
+  {}
+  (file
+    (struct
+      {}
+      (name 3:Add)
+      (type_params
+        (group
+          (name 4:Expr)))
+      (fields
+        (field
+          (name 4:left)
+          (type
+            (name 4:Expr)))
+        (field
+          (name 5:right)
+          (type
+            (name 4:Expr)))))
+    (struct
+      {}
+      (name 3:Sub)
+      (type_params
+        (group
+          (name 4:Expr)))
+      (fields
+        (field
+          (name 4:left)
+          (type
+            (name 4:Expr)))
+        (field
+          (name 5:right)
+          (type
+            (name 4:Expr)))))
+    (struct
+      {}
+      (name 10:IntLiteral)
+      (type_params)
+      (fields
+        (field
+          (name 5:value)
+          (type
+            (name 3:Int)))))
+    (function
+      {}
+      (square
+        (group
+          (name 1:T)))
+      (name 5:abort)
+      (Colon)
+      (name 1:T)
+      (eq)
+      (name 5:abort))
+    (function
+      {}
+      (paren
+        (name 1:x)
+        (Colon)
+        (name 3:Int))
+      (name 1:+)
+      (paren
+        (name 1:y)
+        (Colon)
+        (name 3:Int))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (name 5:abort))
+    (function
+      {}
+      (paren
+        (name 1:x)
+        (Colon)
+        (name 3:Int))
+      (name 1:-)
+      (paren
+        (name 1:y)
+        (Colon)
+        (name 3:Int))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (name 5:abort))
+    (function
+      {}
+      (paren
+        (name 1:x)
+        (Colon)
+        (name 3:Int))
+      (name 1:*)
+      (paren
+        (name 1:y)
+        (Colon)
+        (name 3:Int))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (name 5:abort))
+    (type_alias
+      (name 4:Expr)
+      (type_params)
+      (type
+        (name 3:Add)
+        (square
+          (group
+            (name 4:Expr)))
+        (name 1:|)
+        (name 3:Sub)
+        (square
+          (group
+            (name 4:Expr)))
+        (name 1:|)
+        (name 10:IntLiteral)))
+    (function
+      {}
+      (name 4:eval)
+      (paren
+        (name 4:expr)
+        (Colon)
+        (name 10:IntLiteral))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (lookup
+        (group
+          (name 4:expr))
+        (name 5:value)))
+    (function
+      {}
+      (square
+        (group
+          (name 1:E)))
+      (name 4:eval)
+      (paren
+        (name 4:expr)
+        (Colon)
+        (name 3:Add)
+        (square
+          (group
+            (name 1:E))))
+      (Colon)
+      (name 3:Int)
+      (where)
+      (name 4:eval)
+      (Colon)
+      (name 3:Int)
+      (left_arrow)
+      (name 1:E)
+      (eq)
+      (indent
+        (group
+          (name 4:eval)
+          (paren
+            (lookup
+              (group
+                (name 4:expr))
+              (name 4:left)))
+          (name 1:+)
+          (name 4:eval)
+          (paren
+            (lookup
+              (group
+                (name 4:expr))
+              (name 5:right))))))
+    (function
+      {}
+      (square
+        (group
+          (name 1:E)))
+      (name 4:eval)
+      (paren
+        (name 4:expr)
+        (Colon)
+        (name 3:Sub)
+        (square
+          (group
+            (name 1:E))))
+      (Colon)
+      (name 3:Int)
+      (where)
+      (name 4:eval)
+      (Colon)
+      (name 3:Int)
+      (left_arrow)
+      (name 1:E)
+      (eq)
+      (indent
+        (group
+          (name 4:eval)
+          (paren
+            (lookup
+              (group
+                (name 4:expr))
+              (name 4:left)))
+          (name 1:-)
+          (name 4:eval)
+          (paren
+            (lookup
+              (group
+                (name 4:expr))
+              (name 5:right))))))
+    (struct
+      {}
+      (name 3:Mul)
+      (type_params
+        (group
+          (name 4:Expr)))
+      (fields
+        (field
+          (name 4:left)
+          (type
+            (name 4:Expr)))
+        (field
+          (name 5:right)
+          (type
+            (name 4:Expr)))))
+    (type_alias
+      (name 5:Expr2)
+      (type_params)
+      (type
+        (name 3:Add)
+        (square
+          (group
+            (name 5:Expr2)))
+        (name 1:|)
+        (name 3:Sub)
+        (square
+          (group
+            (name 5:Expr2)))
+        (name 1:|)
+        (name 3:Mul)
+        (square
+          (group
+            (name 5:Expr2)))
+        (name 1:|)
+        (name 3:Int)))
+    (function
+      {}
+      (square
+        (group
+          (name 1:E)))
+      (name 4:eval)
+      (paren
+        (name 4:expr)
+        (Colon)
+        (name 3:Mul)
+        (square
+          (group
+            (name 1:E))))
+      (Colon)
+      (name 3:Int)
+      (where)
+      (name 4:eval)
+      (Colon)
+      (name 3:Int)
+      (left_arrow)
+      (name 1:E)
+      (eq)
+      (indent
+        (group
+          (name 4:eval)
+          (paren
+            (lookup
+              (group
+                (name 4:expr))
+              (name 4:left)))
+          (name 1:*)
+          (name 4:eval)
+          (paren
+            (lookup
+              (group
+                (name 4:expr))
+              (name 5:right))))))
+    (function
+      {}
+      (name 5:test1)
+      (paren
+        (name 1:x)
+        (Colon)
+        (name 4:Expr))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (name 4:eval)
+          (name 1:x))))
+    (function
+      {}
+      (name 5:test2)
+      (paren
+        (name 1:x)
+        (Colon)
+        (name 5:Expr2))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (name 4:eval)
+          (name 1:x))))))
