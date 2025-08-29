@@ -260,4 +260,157 @@ structure
           (name 4:else)
           (indent
             (group
-              (name 5:False))))))))
+              (name 5:False))))))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P))
+        (group
+          (name 1:Q)))
+      (paren
+        (name 1:f)
+        (Colon)
+        (name 3:Fun)
+        (square
+          (group
+            (name 1:P))
+          (group
+            (name 1:Q))))
+      (name 1:@)
+      (paren
+        (name 1:x)
+        (Colon)
+        (name 1:P))
+      (Colon)
+      (name 1:Q)
+      (eq)
+      (name 5:abort))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P))
+        (group
+          (name 1:Q)))
+      (paren
+        (name 1:l)
+        (Colon)
+        (name 4:List)
+        (square
+          (group
+            (name 1:P))))
+      (name 3:map)
+      (paren
+        (name 1:f)
+        (Colon)
+        (name 3:Fun)
+        (square
+          (group
+            (name 1:P))
+          (group
+            (name 1:Q))))
+      (Colon)
+      (name 4:List)
+      (square
+        (group
+          (name 1:Q)))
+      (eq)
+      (indent
+        (function
+          {}
+          (name 5:inner)
+          (paren
+            (name 1:l)
+            (Colon)
+            (name 9:EmptyList))
+          (Colon)
+          (name 4:List)
+          (square
+            (group
+              (name 1:Q)))
+          (eq)
+          (name 9:EmptyList))
+        (function
+          {}
+          (name 5:inner)
+          (paren
+            (name 1:l)
+            (Colon)
+            (name 8:ListNode)
+            (square
+              (group
+                (name 1:P))))
+          (Colon)
+          (name 4:List)
+          (square
+            (group
+              (name 1:Q)))
+          (eq)
+          (indent
+            (group
+              (name 8:ListNode)
+              (paren
+                (name 1:f)
+                (name 1:@)
+                (lookup
+                  (group
+                    (name 1:l))
+                  (name 5:value)))
+              (paren
+                (name 5:inner)
+                (lookup
+                  (group
+                    (name 1:l))
+                  (name 4:next))))))
+        (group
+          (name 5:inner)
+          (name 1:l))))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P))
+        (group
+          (name 1:Q))
+        (group
+          (name 1:R)))
+      (name 4:test)
+      (paren
+        (name 1:l)
+        (Colon)
+        (name 4:List)
+        (square
+          (group
+            (name 1:P))))
+      (paren
+        (name 1:f)
+        (Colon)
+        (name 3:Fun)
+        (square
+          (group
+            (name 1:P))
+          (group
+            (name 1:Q))))
+      (paren
+        (name 1:g)
+        (Colon)
+        (name 3:Fun)
+        (square
+          (group
+            (name 1:Q))
+          (group
+            (name 1:R))))
+      (Colon)
+      (name 4:List)
+      (square
+        (group
+          (name 1:R)))
+      (eq)
+      (indent
+        (group
+          (name 1:l)
+          (name 3:map)
+          (name 1:f)
+          (name 3:map)
+          (name 1:g))))))

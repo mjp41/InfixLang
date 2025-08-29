@@ -2,6 +2,7 @@ infix
 function_parse
 (top
   {
+    @ = function
     Bool = type_alias
     EmptyList = struct
     False = struct
@@ -21,10 +22,13 @@ function_parse
     isEmpty =
       function
       function
+    map = function
     not =
       function
       function
-    test = function
+    test =
+      function
+      function
     toString = function}
   (file
     (struct
@@ -382,4 +386,216 @@ function_parse
             (name 4:else)
             (indent
               (group
-                (name 5:False)))))))))
+                (name 5:False)))))))
+    (function
+      {
+        P = type_param
+        Q = type_param
+        f = param
+        x = param}
+      (type_params
+        (type_param
+          (name 1:P))
+        (type_param
+          (name 1:Q)))
+      (lhs
+        (param
+          (name 1:f)
+          (mode
+            (cbv))
+          (type
+            (name 3:Fun)
+            (square
+              (group
+                (name 1:P))
+              (group
+                (name 1:Q))))))
+      (name 1:@)
+      (rhs
+        (param
+          (name 1:x)
+          (mode
+            (cbv))
+          (type
+            (name 1:P))))
+      (type
+        (name 1:Q))
+      (where)
+      (body
+        (expr_stack)
+        (name 5:abort)))
+    (function
+      {
+        P = type_param
+        Q = type_param
+        f = param
+        inner =
+          function
+          function
+        l = param}
+      (type_params
+        (type_param
+          (name 1:P))
+        (type_param
+          (name 1:Q)))
+      (lhs
+        (param
+          (name 1:l)
+          (mode
+            (cbv))
+          (type
+            (name 4:List)
+            (square
+              (group
+                (name 1:P))))))
+      (name 3:map)
+      (rhs
+        (param
+          (name 1:f)
+          (mode
+            (cbv))
+          (type
+            (name 3:Fun)
+            (square
+              (group
+                (name 1:P))
+              (group
+                (name 1:Q))))))
+      (type
+        (name 4:List)
+        (square
+          (group
+            (name 1:Q))))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (function
+            {
+              l = param}
+            (type_params)
+            (lhs)
+            (name 5:inner)
+            (rhs
+              (param
+                (name 1:l)
+                (mode
+                  (cbv))
+                (type
+                  (name 9:EmptyList))))
+            (type
+              (name 4:List)
+              (square
+                (group
+                  (name 1:Q))))
+            (where)
+            (body
+              (expr_stack)
+              (name 9:EmptyList)))
+          (function
+            {
+              l = param}
+            (type_params)
+            (lhs)
+            (name 5:inner)
+            (rhs
+              (param
+                (name 1:l)
+                (mode
+                  (cbv))
+                (type
+                  (name 8:ListNode)
+                  (square
+                    (group
+                      (name 1:P))))))
+            (type
+              (name 4:List)
+              (square
+                (group
+                  (name 1:Q))))
+            (where)
+            (body
+              (expr_stack)
+              (indent
+                (group
+                  (name 8:ListNode)
+                  (paren
+                    (name 1:f)
+                    (name 1:@)
+                    (lookup
+                      (group
+                        (name 1:l))
+                      (name 5:value)))
+                  (paren
+                    (name 5:inner)
+                    (lookup
+                      (group
+                        (name 1:l))
+                      (name 4:next)))))))
+          (group
+            (name 5:inner)
+            (name 1:l)))))
+    (function
+      {
+        P = type_param
+        Q = type_param
+        R = type_param
+        f = param
+        g = param
+        l = param}
+      (type_params
+        (type_param
+          (name 1:P))
+        (type_param
+          (name 1:Q))
+        (type_param
+          (name 1:R)))
+      (lhs)
+      (name 4:test)
+      (rhs
+        (param
+          (name 1:l)
+          (mode
+            (cbv))
+          (type
+            (name 4:List)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 1:f)
+          (mode
+            (cbv))
+          (type
+            (name 3:Fun)
+            (square
+              (group
+                (name 1:P))
+              (group
+                (name 1:Q)))))
+        (param
+          (name 1:g)
+          (mode
+            (cbv))
+          (type
+            (name 3:Fun)
+            (square
+              (group
+                (name 1:Q))
+              (group
+                (name 1:R))))))
+      (type
+        (name 4:List)
+        (square
+          (group
+            (name 1:R))))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (name 1:l)
+            (name 3:map)
+            (name 1:f)
+            (name 3:map)
+            (name 1:g)))))))

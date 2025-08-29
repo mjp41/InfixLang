@@ -284,4 +284,171 @@ parse
           (name 4:else)
           (indent
             (group
-              (name 5:False))))))))
+              (name 5:False))))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P))
+        (group
+          (name 1:Q)))
+      (paren
+        (group
+          (name 1:f)
+          (Colon)
+          (name 3:Fun)
+          (square
+            (group
+              (name 1:P))
+            (group
+              (name 1:Q)))))
+      (name 1:@)
+      (paren
+        (group
+          (name 1:x)
+          (Colon)
+          (name 1:P)))
+      (Colon)
+      (name 1:Q)
+      (eq)
+      (name 5:abort))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P))
+        (group
+          (name 1:Q)))
+      (paren
+        (group
+          (name 1:l)
+          (Colon)
+          (name 4:List)
+          (square
+            (group
+              (name 1:P)))))
+      (name 3:map)
+      (paren
+        (group
+          (name 1:f)
+          (Colon)
+          (name 3:Fun)
+          (square
+            (group
+              (name 1:P))
+            (group
+              (name 1:Q)))))
+      (Colon)
+      (name 4:List)
+      (square
+        (group
+          (name 1:Q)))
+      (eq)
+      (indent
+        (group
+          (function
+            {})
+          (name 5:inner)
+          (paren
+            (group
+              (name 1:l)
+              (Colon)
+              (name 9:EmptyList)))
+          (Colon)
+          (name 4:List)
+          (square
+            (group
+              (name 1:Q)))
+          (eq)
+          (name 9:EmptyList))
+        (group
+          (function
+            {})
+          (name 5:inner)
+          (paren
+            (group
+              (name 1:l)
+              (Colon)
+              (name 8:ListNode)
+              (square
+                (group
+                  (name 1:P)))))
+          (Colon)
+          (name 4:List)
+          (square
+            (group
+              (name 1:Q)))
+          (eq)
+          (indent
+            (group
+              (name 8:ListNode)
+              (paren
+                (group
+                  (name 1:f)
+                  (name 1:@)
+                  (name 1:l)
+                  (dot)
+                  (name 5:value)))
+              (paren
+                (group
+                  (name 5:inner)
+                  (name 1:l)
+                  (dot)
+                  (name 4:next))))))
+        (group
+          (name 5:inner)
+          (name 1:l))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P))
+        (group
+          (name 1:Q))
+        (group
+          (name 1:R)))
+      (name 4:test)
+      (paren
+        (group
+          (name 1:l)
+          (Colon)
+          (name 4:List)
+          (square
+            (group
+              (name 1:P)))))
+      (paren
+        (group
+          (name 1:f)
+          (Colon)
+          (name 3:Fun)
+          (square
+            (group
+              (name 1:P))
+            (group
+              (name 1:Q)))))
+      (paren
+        (group
+          (name 1:g)
+          (Colon)
+          (name 3:Fun)
+          (square
+            (group
+              (name 1:Q))
+            (group
+              (name 1:R)))))
+      (Colon)
+      (name 4:List)
+      (square
+        (group
+          (name 1:R)))
+      (eq)
+      (indent
+        (group
+          (name 1:l)
+          (name 3:map)
+          (name 1:f)
+          (name 3:map)
+          (name 1:g))))))

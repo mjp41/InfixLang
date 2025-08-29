@@ -35,3 +35,16 @@ function[T] test (l : List[T]): None =
   else
     False
 
+# Primitive for applying a function object.
+function[P,Q] (f: Fun[P,Q]) @ (x: P) : Q = abort
+
+# Define map to be infix to make language nicer
+function[P, Q] (l: List[P]) map (f: Fun[P, Q]) : List[Q] = 
+  function inner (l: EmptyList) : List[Q] = EmptyList
+  function inner (l: ListNode[P]) : List[Q] = 
+    ListNode (f @ l.value) (inner l.next)
+  inner l
+
+# Example of chained use of map.
+function[P,Q,R] test (l: List[P]) (f: Fun[P, Q]) (g: Fun[Q, R]) : List[R] =
+  l map f map g
