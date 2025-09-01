@@ -134,9 +134,9 @@ structure
       (name 1:P)
       (eq)
       (lookup
-        (group
-          (name 4:prev))
-        (name 5:value)))
+        (name 5:value)
+        (args
+          (name 4:prev))))
     (function
       {}
       (square
@@ -174,14 +174,14 @@ structure
           (name 2:if)
           (paren
             (lookup
-              (group
-                (name 5:cell1))
-              (name 5:value))
+              (name 5:value)
+              (args
+                (name 5:cell1)))
             (name 2:==)
             (lookup
-              (group
-                (name 5:cell2))
-              (name 5:value)))
+              (name 5:value)
+              (args
+                (name 5:cell2))))
           (indent
             (group
               (name 4:True))))

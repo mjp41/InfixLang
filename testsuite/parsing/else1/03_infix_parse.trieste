@@ -64,9 +64,9 @@ infix_parse
       (where)
       (body
         (lookup
-          (group
-            (name 3:lhs))
-          (name 5:value))))
+          (name 5:value)
+          (args
+            (name 3:lhs)))))
     (function
       {}
       (type_params

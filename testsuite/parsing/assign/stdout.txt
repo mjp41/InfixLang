@@ -1,0 +1,12 @@
+Errors:
+No expression for left side of equality
+-- assign.infix:45:9
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function[P] failed (c1: Cell[P]) (c2: Cell[P]) : Void =
+  c1.value
+    = c2.value
+      = c1.value
+~~~~~~~~~~~~~~~~
+
+Pass infix_parse failed with 1 error!
+

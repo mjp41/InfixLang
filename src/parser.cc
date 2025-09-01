@@ -75,6 +75,7 @@ Parse parser() {
             },
         "\\." >> [](auto &m) { m.add(Dot); },
         ":" >> [](auto &m) { m.add(Colon); },
+        ";" >> [](auto &m) { m.add(SemiColon); },
         "`" >> [](auto &m) { m.add(Backtick); },
         "\\^" >> [](auto &m) { m.add(Hat); },
 
@@ -121,7 +122,7 @@ Parse parser() {
             },
 
         // Match complex sequences of symbols/letters and numbers
-        "[^[:blank:]\\.\\(\\)\\[\\],:\\^\\n\\r\\\"`]+" >>
+        "[^[:blank:]\\.\\(\\)\\[\\],;:\\^\\n\\r\\\"`]+" >>
             [](auto &m) {
               if (m.match(0).view() == "=") {
                 m.add(Eq);

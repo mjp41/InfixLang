@@ -40,7 +40,7 @@ std::vector<Pass> passes() {
               },
 
           Any[Lhs] * T(Dot) * T(Name)[Name] >>
-              [](auto &_) { return Lookup << (Group << _(Lhs)) << _(Name); },
+              [](auto &_) { return Lookup << _(Name) << (Args << _(Lhs)); },
 
           In(Fields) * T(Group, Paren)
                   << (T(Name)[Name] * T(Colon) * Any++[Type]) >>
@@ -93,11 +93,14 @@ std::vector<Pass> passes() {
 
           In(Function) * T(Type)[Type] * T(Eq) * Any++[Body] >>
               [](auto &_) {
-                return Seq << _(Type) << Where << (Body << ExprStack << _[Body]);
+                return Seq << _(Type) << Where
+                           << (Body << ExprStack << _[Body]);
               },
 
           In(Function) * T(Where)[Where] * T(Eq) * Any++[Body] >>
-              [](auto &_) { return Seq << _(Where) << (Body << ExprStack << _[Body]); },
+              [](auto &_) {
+                return Seq << _(Where) << (Body << ExprStack << _[Body]);
+              },
 
           In(Function) * T(Type)[Type] * (!T(Eq, Body, Where))[Rhs] >>
               [](auto &_) { return _(Type) << _[Rhs]; },
@@ -111,11 +114,12 @@ std::vector<Pass> passes() {
       wf::empty,
       dir::topdown,
       {
+          T(Expr) << T(Expr)[Expr] >> [](auto &_) { return _(Expr); },
           // Pull decls to top.
-          T(ExprStack, PartialCall)[Lhs] * Decls[Rhs] >>
+          T(ExprStack, Partial)[Lhs] * Decls[Rhs] >>
               [](auto &_) { return Seq << _[Rhs] << _[Lhs]; },
 
-          T(ExprStack, PartialCall)[Lhs] * T(Indent, Paren)[Paren] >>
+          T(ExprStack, Partial)[Lhs] * T(Indent, Paren)[Paren] >>
               [](auto &_) {
                 return Seq << _(Lhs) << (Expr << ExprStack << *_[Paren]);
               },
@@ -128,16 +132,15 @@ std::vector<Pass> passes() {
           T(ExprStack)[ExprStack] * End >>
               [](auto &_) { return Seq << *_(ExprStack); },
 
-          T(ExprStack, PartialCall, PartialCreate)[ExprStack] *
-                  T(Group)[Group] >>
+          T(ExprStack, Partial)[ExprStack] * T(Group)[Group] >>
               [](auto &_) { return Seq << _(ExprStack) << *_(Group); },
 
-          T(ExprStack)[ExprStack] *
-                  (!T(Name, PartialCall, PartialCreate))[Rhs] >>
+          T(ExprStack)[ExprStack] * (!T(Name, Partial, Eq, SemiColon))[Rhs] >>
               [](auto &_) { return _(ExprStack) << _[Rhs]; },
 
-          (T(PartialCall)[PartialCall] << (T(Name)[Name] * T(Args)[Args])) *
-                  (!T(Name, PartialCall))[Rhs] >>
+          (T(Partial)[Partial]
+           << (T(Call)[Call] << (T(Name)[Name] * T(Args)[Args]))) *
+                  (!T(Name, Partial))[Rhs] >>
               [](auto &_) {
                 _(Args)->push_back(_[Rhs]);
 
@@ -147,11 +150,29 @@ std::vector<Pass> passes() {
                   return Call << _(Name) << _(Args);
                 // Args has been updated in place, so this does actually perform
                 // changes.
-                return _(PartialCall);
+                return _(Partial);
               },
 
-          (T(PartialCreate)[PartialCreate] << (T(Name)[Name] * T(Args)[Args])) *
-                  (!T(Name, PartialCreate))[Rhs] >>
+          (T(Partial) << T(Assign)[Assign]) * (!T(Name, Partial))[Rhs] >>
+              [](auto &_) {
+                _(Assign)->push_back(_[Rhs]);
+                return _(Assign);
+              },
+
+          // Unpack explicit associativity.
+          (In(Assign) * ((T(Expr) << T(Assign)[Assign] * End) * End)) >>
+              [](auto &_) { return Seq << *_(Assign); },
+
+          (T(Partial) * T(SemiColon)) >>
+          [](auto &_) { return Error << (ErrorMsg ^ "Unexpected ';' expression not finished.") << (ErrorAst << _[SemiColon]); },
+
+          // Semi-colon flushes the evaluation stack.
+          T(ExprStack)[ExprStack] * T(SemiColon) >>
+              [](auto &_) { return Seq << *_(ExprStack) << ExprStack; },
+
+          (T(Partial)[Partial]
+           << (T(Create) << (T(Name)[Name] * T(Args)[Args]))) *
+                  (!T(Name, Partial, Eq, SemiColon))[Rhs] >>
               [](auto &_) {
                 _(Args)->push_back(_[Rhs]);
 
@@ -161,10 +182,29 @@ std::vector<Pass> passes() {
                   return Create << _(Name) << _(Args);
                 // Args has been updated in place, so this does actually perform
                 // changes.
-                return _(PartialCreate);
+                return _(Partial);
               },
 
-          T(ExprStack, PartialCall, PartialCreate)[ExprStack] * T(Name)[Name] >>
+          T(ExprStack)[ExprStack] * T(Eq)[Eq] >>
+              [](auto &_) {
+                auto es = _(ExprStack)->size();
+                if (es < 1) {
+                  return Error << (ErrorMsg ^
+                                   "No expression for left side of equality")
+                               << (ErrorAst << _(Eq));
+                }
+
+                auto lhs = _(ExprStack)->back();
+                _(ExprStack)->pop_back();
+                if (lhs->type() == Assign) {
+                  // Chained assignment case. Just need the next expression.
+                  return Seq << _(ExprStack) << (Partial << lhs);
+                }
+
+                return Seq << _(ExprStack) << (Partial << (Assign << lhs));
+              },
+
+          T(ExprStack, Partial)[ExprStack] * T(Name)[Name] >>
               [](auto &_) {
                 // Is Name a function.
 
@@ -211,8 +251,7 @@ std::vector<Pass> passes() {
                 auto require_lhs_size =
                     f->type() == Function ? (f / Lhs)->size() : 0;
                 if (require_lhs_size != 0) {
-                  if ((_(ExprStack)->type() == PartialCall) ||
-                      (_(ExprStack)->type() == PartialCreate)) {
+                  if (_(ExprStack)->type() == Partial) {
                     return Error
                            << (ErrorMsg ^ "Cannot use:") << (ErrorAst << v)
                            << (ErrorMsg ^ "as an argument to ")
@@ -240,7 +279,7 @@ std::vector<Pass> passes() {
                   auto require_rhs_size = (f / Rhs)->size();
                   if (require_rhs_size != 0)
                     return Seq << _(ExprStack)
-                               << (PartialCall << _(Name) << args_node);
+                               << (Partial << (Call << _(Name) << args_node));
 
                   return Seq << _(ExprStack) << (Call << _(Name) << args_node);
                 }
@@ -248,7 +287,7 @@ std::vector<Pass> passes() {
                 auto require_rhs_size = (f / Fields)->size();
                 if (require_rhs_size != 0)
                   return Seq << _(ExprStack)
-                             << (PartialCreate << _(Name) << args_node);
+                             << (Partial << (Create << _(Name) << args_node));
 
                 return Seq << _(ExprStack) << (Create << _(Name) << args_node);
               },
@@ -257,114 +296,4 @@ std::vector<Pass> passes() {
   return {operator_defn, function_parse, infix_parse};
 }
 
-// PassDef operator_grouping {
-//   "operator_grouping",
-//   wf::empty,
-//   dir::topdown | dir::once,
-//   {
-//     T(Group) << (T(Operator) * T(Name)[Name] * T(Underscore)++[Rhs] * End)
-//     >>
-//         [](auto &_) {
-//           return Operator << _[Name] << (Rhs << _[Rhs]);
-//         },
-
-//     T(Group) << (T(Operator) * T(Underscore)++[Lhs] * T(Name)[Name] * End)
-//     >>
-//         [](auto &_) {
-//           return Operator << _[Name] << (Lhs << _[Lhs]);
-//         }
-//   }};
-// };
 } // namespace infix
-  //           T(Class) * T(Name)[Name] * Any++[Body] >>
-  //               [](auto &_) { return Class << _[Name] << (Body << _[Body]);
-  //               },
-
-//           T(Infix) * Any[Lhs] * T(Name)[Name] * (!T(Eq))++[Rhs] * T(Eq) *
-//                   Any++[Body] >>
-//               [](auto &_) {
-//                 return Infix << _[Name] << (Params << _[Lhs] << _[Rhs])
-//                              << (Body << _[Body]);
-//               },
-
-//           T(Fun) * T(Name)[Name] * (!T(Eq))++[Rhs] * T(Eq) * Any++[Body] >>
-//               [](auto &_) {
-//                 return Fun << _[Name] << (Params << _[Rhs]) << (Body <<
-//                 _[Body]);
-//               },
-
-//           In(Params) * T(Name)[Name] >>
-//               [](auto &_) { return Param << _[Name] << (Kind << Value); },
-
-//           In(Params) * (T(Paren) << (T(Lazy) * T(Name)[Name])) >>
-//               [](auto &_) { return Param << _[Name] << (Kind << Lazy); },
-
-//           In(Params) * (T(Paren) << (T(Type) * T(Name)[Name])) >>
-//               [](auto &_) { return Param << _[Name] << (Kind << Type); },
-
-//           T(Group, Body, Paren, Indent)[Top]
-//                   << (T(Group, Paren, App)[Group] * End) >>
-//               [](auto &_) { return _(Top)->type() << *_[Group]; },
-
-//           T(Indent)[Indent] >> [](auto &_) { return Paren << *_[Indent]; },
-//       }};
-
-//   PassDef application{
-//       "application",
-//       wf_structure,
-//       dir::topdown,
-//       {
-//           Any[Lhs] * (T(Group) << Any[Name] * Any++[Rhs]) >>
-//               [](auto &_) -> Node {
-//             const Node &v = _(Name);
-//             auto defs = v->lookup();
-
-//             if (defs.size() == 1 && defs.front()->type() == Infix) {
-//               return App << _[Name] << _[Lhs] << _[Rhs];
-//             }
-//             return NoChange;
-//           },
-
-//           In(Group, Body, Paren) * Start *Any[Lhs] * Any[Rhs] >>
-//               [](auto &_) -> Node {
-//             const Node &v = _(Rhs);
-//             auto defs = v->lookup();
-
-//             if (defs.size() == 1 && defs.front()->type() == Infix) {
-//               return App << _[Rhs] << _[Lhs];
-//             }
-
-//             return App << _[Lhs] << _[Rhs];
-//           },
-
-//           T(App) << (T(App)[Lhs] * Any++[Rhs]) >>
-//               [](auto &_) -> Node { return App << *_[Lhs] << _[Rhs]; },
-//       }};
-
-//   //   PassDef evaluate{
-//   //     "evaluate",
-//   //     wf_parser,
-//   //     dir::topdown,
-//   //     {
-//   //         In(Top) * (T(Class)[Class] << T(Name)[Name]) * T(Semicolon) >>
-//   //             [](auto &_) -> Node {
-//   //                 logging::Output() << "Process class definition! " <<
-//   //                 _(Name)->location().view(); return {}; },
-//   //         In(Top) * (T(Fun)[Fun] << ~(T(Infix)[Infix]) * T(Name)[Name]) *
-//   //         T(Semicolon) >>
-//   //             [](auto &_) -> Node {
-//   //                 if (_(Infix))
-//   //                     logging::Output() << "Process function definition
-//   //                     (Infix): " << _(Name)->location().view();
-//   //                 else
-//   //                     logging::Output() << "Process function definition: "
-//   //                     <<
-//   //                     _(Name)->location().view();
-
-//   //                 return {}; },
-//   //     }
-//   //   };
-
-//   return {structure, application};
-// }
-// } // namespace infix

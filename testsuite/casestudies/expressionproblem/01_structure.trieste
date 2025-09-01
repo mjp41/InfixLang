@@ -123,9 +123,9 @@ structure
       (name 3:Int)
       (eq)
       (lookup
-        (group
-          (name 4:expr))
-        (name 5:value)))
+        (name 5:value)
+        (args
+          (name 4:expr))))
     (function
       {}
       (square
@@ -153,16 +153,16 @@ structure
           (name 4:eval)
           (paren
             (lookup
-              (group
-                (name 4:expr))
-              (name 4:left)))
+              (name 4:left)
+              (args
+                (name 4:expr))))
           (name 1:+)
           (name 4:eval)
           (paren
             (lookup
-              (group
-                (name 4:expr))
-              (name 5:right))))))
+              (name 5:right)
+              (args
+                (name 4:expr)))))))
     (function
       {}
       (square
@@ -190,16 +190,16 @@ structure
           (name 4:eval)
           (paren
             (lookup
-              (group
-                (name 4:expr))
-              (name 4:left)))
+              (name 4:left)
+              (args
+                (name 4:expr))))
           (name 1:-)
           (name 4:eval)
           (paren
             (lookup
-              (group
-                (name 4:expr))
-              (name 5:right))))))
+              (name 5:right)
+              (args
+                (name 4:expr)))))))
     (struct
       {}
       (name 3:Mul)
@@ -262,16 +262,16 @@ structure
           (name 4:eval)
           (paren
             (lookup
-              (group
-                (name 4:expr))
-              (name 4:left)))
+              (name 4:left)
+              (args
+                (name 4:expr))))
           (name 1:*)
           (name 4:eval)
           (paren
             (lookup
-              (group
-                (name 4:expr))
-              (name 5:right))))))
+              (name 5:right)
+              (args
+                (name 4:expr)))))))
     (function
       {}
       (name 5:test1)

@@ -164,9 +164,9 @@ infix_parse
       (where)
       (body
         (lookup
-          (group
-            (name 3:lhs))
-          (name 5:value))))
+          (name 5:value)
+          (args
+            (name 3:lhs)))))
     (function
       {}
       (type_params
@@ -257,8 +257,7 @@ infix_parse
                               (expr
                                 (name 1:c)))))
                         (expr
-                          (expr
-                            (name 8:previous)))))
+                          (name 8:previous))))
                     (expr
                       (call
                         (name 5:inner)

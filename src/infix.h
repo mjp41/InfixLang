@@ -18,6 +18,7 @@ inline const auto And = TokenDef("and");
 inline const auto Indent = TokenDef("indent");
 
 inline const auto Colon = TokenDef("Colon");
+inline const auto SemiColon = TokenDef("SemiColon");
 inline const auto Comma = TokenDef("Comma");
 inline const auto Dot = TokenDef("dot");
 inline const auto Paren = TokenDef("paren");
@@ -31,10 +32,9 @@ inline const auto Backtick = TokenDef("Backtick");
 inline const auto Mode = TokenDef("mode");
 inline const auto CBN = TokenDef("cbn");
 inline const auto CBV = TokenDef("cbv");
+inline const auto Partial = TokenDef("partial");
 inline const auto Call = TokenDef("call");
-inline const auto PartialCall = TokenDef("partial_call");
 inline const auto Create = TokenDef("create");
-inline const auto PartialCreate = TokenDef("partial_create");
 inline const auto Args = TokenDef("args");
 
 inline const auto Name = TokenDef("name", flag::print);
@@ -60,7 +60,7 @@ inline const auto Body = TokenDef("body");
 inline const auto Expr = TokenDef("expr");
 inline const auto Lookup = TokenDef("lookup");
 inline const auto ExprStack = TokenDef("expr_stack");
-
+inline const auto Assign = TokenDef("assign");
 inline const auto OperatorDef =
     TokenDef("operator_def", flag::lookup | flag::lookdown);
 
@@ -107,7 +107,7 @@ inline const auto wf_operator_defn =
 
 inline const auto wf_decls = Struct | TypeAlias | Function;
 
-inline const auto wf_term = Paren | Name | Group | Indent | Dot | Arrow | LeftArrow | Colon | Lookup | Eq;
+inline const auto wf_term = Paren | Name | Group | Indent | Dot | Arrow | LeftArrow | Colon | Lookup | Eq | SemiColon;
 
 inline const auto wf_function_parse =
   (Top <<= File)
@@ -122,7 +122,8 @@ inline const auto wf_function_parse =
   | (Type <<= (Name | Square | Arrow)++)
   | (Lhs <<= Param++)
   | (Rhs <<= Param++)
-  | (Lookup <<= Group * Name)
+  | (Lookup <<= Name * Args)
+  | (Args <<= wf_term)
   | (Param <<= Name * Mode * Type)[Name]
   | (Mode <<= CBN | CBV)
   | (TypeParams <<= TypeParam++)

@@ -193,9 +193,9 @@ function_parse
       (body
         (expr_stack)
         (lookup
-          (group
-            (name 4:expr))
-          (name 5:value))))
+          (name 5:value)
+          (args
+            (name 4:expr)))))
     (function
       {
         E = type_param
@@ -230,16 +230,16 @@ function_parse
             (name 4:eval)
             (paren
               (lookup
-                (group
-                  (name 4:expr))
-                (name 4:left)))
+                (name 4:left)
+                (args
+                  (name 4:expr))))
             (name 1:+)
             (name 4:eval)
             (paren
               (lookup
-                (group
-                  (name 4:expr))
-                (name 5:right)))))))
+                (name 5:right)
+                (args
+                  (name 4:expr))))))))
     (function
       {
         E = type_param
@@ -274,16 +274,16 @@ function_parse
             (name 4:eval)
             (paren
               (lookup
-                (group
-                  (name 4:expr))
-                (name 4:left)))
+                (name 4:left)
+                (args
+                  (name 4:expr))))
             (name 1:-)
             (name 4:eval)
             (paren
               (lookup
-                (group
-                  (name 4:expr))
-                (name 5:right)))))))
+                (name 5:right)
+                (args
+                  (name 4:expr))))))))
     (struct
       {
         Expr = type_param
@@ -356,16 +356,16 @@ function_parse
             (name 4:eval)
             (paren
               (lookup
-                (group
-                  (name 4:expr))
-                (name 4:left)))
+                (name 4:left)
+                (args
+                  (name 4:expr))))
             (name 1:*)
             (name 4:eval)
             (paren
               (lookup
-                (group
-                  (name 4:expr))
-                (name 5:right)))))))
+                (name 5:right)
+                (args
+                  (name 4:expr))))))))
     (function
       {
         x = param}

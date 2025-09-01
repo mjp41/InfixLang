@@ -58,9 +58,9 @@ structure
       (name 1:P)
       (eq)
       (lookup
-        (group
-          (name 3:lhs))
-        (name 5:value)))
+        (name 5:value)
+        (args
+          (name 3:lhs))))
     (function
       {}
       (square

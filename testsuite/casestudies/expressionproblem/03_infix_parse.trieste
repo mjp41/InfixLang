@@ -164,9 +164,9 @@ infix_parse
       (where)
       (body
         (lookup
-          (group
-            (name 4:expr))
-          (name 5:value))))
+          (name 5:value)
+          (args
+            (name 4:expr)))))
     (function
       {}
       (type_params
@@ -202,17 +202,17 @@ infix_parse
                 (args
                   (expr
                     (lookup
-                      (group
-                        (name 4:expr))
-                      (name 4:left)))))
+                      (name 4:left)
+                      (args
+                        (name 4:expr))))))
               (call
                 (name 4:eval)
                 (args
                   (expr
                     (lookup
-                      (group
-                        (name 4:expr))
-                      (name 5:right))))))))))
+                      (name 5:right)
+                      (args
+                        (name 4:expr)))))))))))
     (function
       {}
       (type_params
@@ -248,17 +248,17 @@ infix_parse
                 (args
                   (expr
                     (lookup
-                      (group
-                        (name 4:expr))
-                      (name 4:left)))))
+                      (name 4:left)
+                      (args
+                        (name 4:expr))))))
               (call
                 (name 4:eval)
                 (args
                   (expr
                     (lookup
-                      (group
-                        (name 4:expr))
-                      (name 5:right))))))))))
+                      (name 5:right)
+                      (args
+                        (name 4:expr)))))))))))
     (struct
       {}
       (name 3:Mul)
@@ -329,17 +329,17 @@ infix_parse
                 (args
                   (expr
                     (lookup
-                      (group
-                        (name 4:expr))
-                      (name 4:left)))))
+                      (name 4:left)
+                      (args
+                        (name 4:expr))))))
               (call
                 (name 4:eval)
                 (args
                   (expr
                     (lookup
-                      (group
-                        (name 4:expr))
-                      (name 5:right))))))))))
+                      (name 5:right)
+                      (args
+                        (name 4:expr)))))))))))
     (function
       {}
       (type_params)

@@ -77,7 +77,7 @@ infix_parse
         (create
           (name 4:Some)
           (args
-            (paren
+            (expr
               (name 4:then))))))
     (function
       {}
@@ -163,9 +163,9 @@ infix_parse
       (where)
       (body
         (lookup
-          (group
-            (name 4:prev))
-          (name 5:value))))
+          (name 5:value)
+          (args
+            (name 4:prev)))))
     (function
       {}
       (type_params
@@ -214,13 +214,13 @@ infix_parse
                     (name 2:==)
                     (args
                       (lookup
-                        (group
-                          (name 5:cell1))
-                        (name 5:value))
+                        (name 5:value)
+                        (args
+                          (name 5:cell1)))
                       (lookup
-                        (group
-                          (name 5:cell2))
-                        (name 5:value)))))
+                        (name 5:value)
+                        (args
+                          (name 5:cell2))))))
                 (expr
                   (create
                     (name 4:True)

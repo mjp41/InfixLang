@@ -135,7 +135,7 @@ parse
       (square
         (group
           (name 1:P)))
-      (name 5:swap2)
+      (name 5:swap3)
       (paren
         (group
           (name 2:c1)
@@ -170,6 +170,105 @@ parse
           (name 2:c1)
           (dot)
           (name 5:value))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (name 5:assoc)
+      (paren
+        (group
+          (name 2:c1)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (paren
+        (group
+          (name 2:c2)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (Colon)
+      (name 4:Void)
+      (eq)
+      (indent
+        (group
+          (name 2:c1)
+          (dot)
+          (name 5:value)
+          (eq)
+          (paren
+            (group
+              (name 2:c2)
+              (dot)
+              (name 5:value)
+              (eq)
+              (name 2:c1)
+              (dot)
+              (name 5:value))))
+        (group
+          (name 2:c1)
+          (dot)
+          (name 5:value)
+          (eq)
+          (paren
+            (group
+              (paren
+                (group
+                  (name 2:c2)
+                  (dot)
+                  (name 5:value)
+                  (eq)
+                  (name 2:c1)
+                  (dot)
+                  (name 5:value))))))
+        (group
+          (paren
+            (group
+              (name 2:c1)
+              (dot)
+              (name 5:value)
+              (eq)
+              (name 2:c2)
+              (dot)
+              (name 5:value)))
+          (eq)
+          (name 2:c1)
+          (dot)
+          (name 5:value))
+        (group
+          (name 2:c1)
+          (dot)
+          (name 5:value)
+          (eq)
+          (name 2:c2)
+          (dot)
+          (name 5:value)
+          (eq)
+          (name 2:c1)
+          (dot)
+          (name 5:value))
+        (group
+          (name 2:c1)
+          (dot)
+          (name 5:value)
+          (eq)
+          (indent
+            (group
+              (name 2:c2)
+              (dot)
+              (name 5:value)
+              (eq)
+              (indent
+                (group
+                  (name 2:c1)
+                  (dot)
+                  (name 5:value))))))))
     (group
       (function
         {})
@@ -223,4 +322,102 @@ parse
           (eq)
           (name 6:right2)
           (name 2:i1)
-          (name 2:i2))))))
+          (name 2:i2))))
+    (group
+      (function
+        {})
+      (name 6:crazy1)
+      (paren
+        (group
+          (name 1:c)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 3:Int)))))
+      (paren
+        (group
+          (name 2:i1)
+          (Colon)
+          (name 3:Int)))
+      (paren
+        (group
+          (name 2:i2)
+          (Colon)
+          (name 3:Int)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (indent
+        (group
+          (name 1:c)
+          (eq)
+          (paren
+            (group
+              (name 1:c)
+              (eq)
+              (name 2:i1)
+              (name 2:i2))))
+        (group
+          (name 1:c)
+          (eq)
+          (paren
+            (group
+              (name 1:c)
+              (eq)
+              (name 2:i1)
+              (SemiColon)
+              (name 2:i2))))
+        (group
+          (name 1:c)
+          (eq)
+          (indent
+            (group
+              (name 1:c)
+              (eq)
+              (name 2:i1))
+            (group
+              (name 2:i2))))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (name 6:failed)
+      (paren
+        (group
+          (name 2:c1)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (paren
+        (group
+          (name 2:c2)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (Colon)
+      (name 4:Void)
+      (eq)
+      (indent
+        (group
+          (name 2:c1)
+          (dot)
+          (name 5:value)
+          (indent
+            (group
+              (eq)
+              (name 2:c2)
+              (dot)
+              (name 5:value)
+              (indent
+                (group
+                  (eq)
+                  (name 2:c1)
+                  (dot)
+                  (name 5:value))))))))))
