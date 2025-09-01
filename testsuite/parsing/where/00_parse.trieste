@@ -12,6 +12,22 @@ parse
         {})
       (name 5:False))
     (group
+      (struct
+        {})
+      (name 4:None))
+    (group
+      (struct
+        {})
+      (name 4:Some)
+      (square
+        (group
+          (name 1:P)))
+      (indent
+        (group
+          (name 5:value)
+          (Colon)
+          (name 1:P))))
+    (group
       (type_alias)
       (name 4:Bool)
       (eq)
@@ -30,6 +46,108 @@ parse
           (name 5:value)
           (Colon)
           (name 1:P))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (name 2:if)
+      (paren
+        (group
+          (name 1:b)
+          (Colon)
+          (name 4:True)))
+      (paren
+        (group
+          (name 4:then)
+          (Colon)
+          (hat)
+          (name 1:P)))
+      (Colon)
+      (name 6:Option)
+      (square
+        (group
+          (name 1:P)))
+      (eq)
+      (name 4:Some)
+      (paren
+        (group
+          (name 4:then))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (name 2:if)
+      (paren
+        (group
+          (name 1:b)
+          (Colon)
+          (name 5:False)))
+      (paren
+        (group
+          (name 4:then)
+          (Colon)
+          (hat)
+          (name 1:P)))
+      (Colon)
+      (name 6:Option)
+      (square
+        (group
+          (name 1:P)))
+      (eq)
+      (name 4:None))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (paren
+        (group
+          (name 4:prev)
+          (Colon)
+          (name 4:None)))
+      (name 4:else)
+      (paren
+        (group
+          (name 4:next)
+          (Colon)
+          (hat)
+          (name 1:P)))
+      (Colon)
+      (name 1:P)
+      (eq)
+      (name 4:next))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (paren
+        (group
+          (name 4:prev)
+          (Colon)
+          (name 4:Some)
+          (square
+            (group
+              (name 1:P)))))
+      (name 4:else)
+      (paren
+        (group
+          (name 4:next)
+          (Colon)
+          (hat)
+          (name 1:P)))
+      (Colon)
+      (name 1:P)
+      (eq)
+      (name 4:prev)
+      (dot)
+      (name 5:value))
     (group
       (function
         {})

@@ -1,10 +1,19 @@
 struct True
 struct False
 
+struct None
+struct Some[P]
+  value: P
+
 type Bool = True | False
 
 struct Cell[P]
   value: P
+
+function[P] if (b: True) (then: ^P) : Option[P] = Some(then)
+function[P] if (b: False) (then: ^P) : Option[P] = None
+function[P] (prev: None) else (next: ^P) : P = next
+function[P] (prev: Some[P]) else (next: ^P) : P = prev.value 
 
 function[P] (cell1: Cell[P]) == (cell2: Cell[P]) : Bool where ==: P -> Bool <- P 
   =

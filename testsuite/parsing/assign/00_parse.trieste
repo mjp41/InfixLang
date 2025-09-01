@@ -1,0 +1,226 @@
+infix
+parse
+(top
+  {}
+  (file
+    (group
+      (struct
+        {})
+      (name 4:Void))
+    (group
+      (struct
+        {})
+      (name 4:Cell)
+      (square
+        (group
+          (name 1:P)))
+      (indent
+        (group
+          (name 5:value)
+          (Colon)
+          (name 1:P))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (name 6:update)
+      (paren
+        (group
+          (name 1:c)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (paren
+        (group
+          (name 1:v)
+          (Colon)
+          (name 1:P)))
+      (Colon)
+      (name 4:Void)
+      (eq)
+      (indent
+        (group
+          (name 1:c)
+          (dot)
+          (name 5:value)
+          (eq)
+          (name 1:v))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (name 5:swap1)
+      (paren
+        (group
+          (name 2:c1)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (paren
+        (group
+          (name 2:c2)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (Colon)
+      (name 4:Void)
+      (eq)
+      (indent
+        (group
+          (name 2:c1)
+          (dot)
+          (name 5:value)
+          (eq)
+          (name 2:c2)
+          (dot)
+          (name 5:value)
+          (eq)
+          (name 2:c1)
+          (dot)
+          (name 5:value))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (name 5:swap2)
+      (paren
+        (group
+          (name 2:c1)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (paren
+        (group
+          (name 2:c2)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (Colon)
+      (name 4:Void)
+      (eq)
+      (indent
+        (group
+          (name 2:c1)
+          (dot)
+          (name 5:value))
+        (group
+          (eq)
+          (name 2:c2)
+          (dot)
+          (name 5:value))
+        (group
+          (eq)
+          (name 2:c1)
+          (dot)
+          (name 5:value))))
+    (group
+      (function
+        {})
+      (square
+        (group
+          (name 1:P)))
+      (name 5:swap2)
+      (paren
+        (group
+          (name 2:c1)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (paren
+        (group
+          (name 2:c2)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 1:P)))))
+      (Colon)
+      (name 4:Void)
+      (eq)
+      (indent
+        (group
+          (name 2:c1)
+          (dot)
+          (name 5:value)
+          (eq))
+        (group
+          (name 2:c2)
+          (dot)
+          (name 5:value)
+          (eq))
+        (group
+          (name 2:c1)
+          (dot)
+          (name 5:value))))
+    (group
+      (function
+        {})
+      (name 6:right2)
+      (paren
+        (group
+          (name 2:c1)
+          (Colon)
+          (name 3:Int)))
+      (paren
+        (group
+          (name 2:c2)
+          (Colon)
+          (name 3:Int)))
+      (Colon)
+      (name 3:Int)
+      (eq)
+      (name 6:right2)
+      (name 2:c1)
+      (name 2:c2))
+    (group
+      (function
+        {})
+      (name 4:test)
+      (paren
+        (group
+          (name 1:c)
+          (Colon)
+          (name 4:Cell)
+          (square
+            (group
+              (name 3:Int)))))
+      (paren
+        (group
+          (name 2:i1)
+          (Colon)
+          (name 3:Int)))
+      (paren
+        (group
+          (name 2:i2)
+          (Colon)
+          (name 3:Int)))
+      (Colon)
+      (name 4:Void)
+      (eq)
+      (indent
+        (group
+          (name 2:c1)
+          (dot)
+          (name 5:value)
+          (eq)
+          (name 6:right2)
+          (name 2:i1)
+          (name 2:i2))))))

@@ -111,8 +111,6 @@ std::vector<Pass> passes() {
       wf::empty,
       dir::topdown,
       {
-          T(Expr) << (Any[Expr] * End) >>
-              [](auto &_) { return _(Expr); },
           // Pull decls to top.
           T(ExprStack, PartialCall)[Lhs] * Decls[Rhs] >>
               [](auto &_) { return Seq << _[Rhs] << _[Lhs]; },

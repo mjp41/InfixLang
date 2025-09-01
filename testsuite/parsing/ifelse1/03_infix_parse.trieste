@@ -66,7 +66,8 @@ infix_parse
         (create
           (name 4:Some)
           (args
-            (name 10:thenBranch)))))
+            (expr
+              (name 10:thenBranch))))))
     (function
       {}
       (type_params
@@ -190,7 +191,8 @@ infix_parse
         (name 1:P))
       (where)
       (body
-        (name 5:value)))
+        (expr
+          (name 5:value))))
     (function
       {}
       (type_params)
@@ -201,33 +203,37 @@ infix_parse
         (name 3:Int))
       (where)
       (body
-        (call
-          (name 4:else)
-          (args
-            (call
-              (name 4:else)
-              (args
-                (call
-                  (name 2:if)
-                  (args
-                    (create
-                      (name 4:True)
-                      (args))
-                    (create
-                      (name 4:None)
-                      (args))))
-                (call
-                  (name 2:if)
-                  (args
-                    (create
-                      (name 5:False)
-                      (args))
-                    (create
-                      (name 4:Some)
-                      (args
+        (expr
+          (call
+            (name 4:else)
+            (args
+              (call
+                (name 4:else)
+                (args
+                  (call
+                    (name 2:if)
+                    (args
+                      (create
+                        (name 4:True)
+                        (args))
+                      (expr
                         (create
-                          (name 4:True)
-                          (args))))))))
-            (create
-              (name 4:None)
-              (args))))))))
+                          (name 4:None)
+                          (args)))))
+                  (call
+                    (name 2:if)
+                    (args
+                      (create
+                        (name 5:False)
+                        (args))
+                      (expr
+                        (create
+                          (name 4:Some)
+                          (args
+                            (create
+                              (name 4:True)
+                              (args)))))))))
+              (expr
+                (create
+                  (name 4:None)
+                  (args))))))))))

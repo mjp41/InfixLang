@@ -1,0 +1,25 @@
+struct Void
+struct Cell[P]
+  value: P
+
+function[P] update (c: Cell[P]) (v: P) : Void =
+  c.value = v
+
+function[P] swap1 (c1: Cell[P]) (c2: Cell[P]) : Void =
+  c1.value = c2.value = c1.value
+
+function[P] swap2 (c1: Cell[P]) (c2: Cell[P]) : Void =
+  c1.value
+  = c2.value
+  = c1.value
+
+function[P] swap2 (c1: Cell[P]) (c2: Cell[P]) : Void =
+  c1.value = 
+  c2.value =
+  c1.value
+
+function right2 (c1: Int) (c2: Int) : Int = right2 c1 c2
+
+function test (c: Cell[Int]) (i1: Int) (i2: Int) : Void =
+  c1.value = right2 i1 i2
+  

@@ -66,7 +66,8 @@ infix_parse
         (create
           (name 4:Some)
           (args
-            (name 10:thenBranch)))))
+            (expr
+              (name 10:thenBranch))))))
     (function
       {}
       (type_params
@@ -190,7 +191,8 @@ infix_parse
         (name 1:P))
       (where)
       (body
-        (name 5:value)))
+        (expr
+          (name 5:value))))
     (function
       {}
       (type_params
@@ -324,22 +326,27 @@ infix_parse
         (name 4:None))
       (where)
       (body
-        (call
-          (name 4:else)
-          (args
-            (call
-              (name 2:if)
-              (args
-                (call
-                  (name 7:isEmpty)
-                  (args
-                    (name 1:l)))
+        (expr
+          (call
+            (name 4:else)
+            (args
+              (call
+                (name 2:if)
+                (args
+                  (expr
+                    (call
+                      (name 7:isEmpty)
+                      (args
+                        (expr
+                          (name 1:l)))))
+                  (expr
+                    (create
+                      (name 4:True)
+                      (args)))))
+              (expr
                 (create
-                  (name 4:True)
-                  (args))))
-            (create
-              (name 5:False)
-              (args))))))
+                  (name 5:False)
+                  (args))))))))
     (function
       {}
       (type_params
@@ -456,26 +463,28 @@ infix_parse
                   (name 1:Q))))
             (where)
             (body
-              (create
-                (name 8:ListNode)
-                (args
-                  (paren
-                    (name 1:f)
-                    (name 1:@)
-                    (lookup
-                      (group
-                        (name 1:l))
-                      (name 5:value)))
-                  (paren
-                    (name 5:inner)
-                    (lookup
-                      (group
-                        (name 1:l))
-                      (name 4:next)))))))
+              (expr
+                (create
+                  (name 8:ListNode)
+                  (args
+                    (paren
+                      (name 1:f)
+                      (name 1:@)
+                      (lookup
+                        (group
+                          (name 1:l))
+                        (name 5:value)))
+                    (paren
+                      (name 5:inner)
+                      (lookup
+                        (group
+                          (name 1:l))
+                        (name 4:next))))))))
           (call
             (name 5:inner)
             (args
-              (name 1:l))))))
+              (expr
+                (name 1:l)))))))
     (function
       {}
       (type_params
@@ -526,12 +535,16 @@ infix_parse
             (name 1:R))))
       (where)
       (body
-        (call
-          (name 3:map)
-          (args
-            (call
-              (name 3:map)
-              (args
-                (name 1:l)
-                (name 1:f)))
-            (name 1:g)))))))
+        (expr
+          (call
+            (name 3:map)
+            (args
+              (call
+                (name 3:map)
+                (args
+                  (expr
+                    (name 1:l))
+                  (expr
+                    (name 1:f))))
+              (expr
+                (name 1:g)))))))))

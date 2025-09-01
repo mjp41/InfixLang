@@ -193,23 +193,26 @@ infix_parse
         (left_arrow)
         (name 1:E))
       (body
-        (call
-          (name 1:+)
-          (args
-            (call
-              (name 4:eval)
-              (args
-                (lookup
-                  (group
-                    (name 4:expr))
-                  (name 4:left))))
-            (call
-              (name 4:eval)
-              (args
-                (lookup
-                  (group
-                    (name 4:expr))
-                  (name 5:right))))))))
+        (expr
+          (call
+            (name 1:+)
+            (args
+              (call
+                (name 4:eval)
+                (args
+                  (expr
+                    (lookup
+                      (group
+                        (name 4:expr))
+                      (name 4:left)))))
+              (call
+                (name 4:eval)
+                (args
+                  (expr
+                    (lookup
+                      (group
+                        (name 4:expr))
+                      (name 5:right))))))))))
     (function
       {}
       (type_params
@@ -236,23 +239,26 @@ infix_parse
         (left_arrow)
         (name 1:E))
       (body
-        (call
-          (name 1:-)
-          (args
-            (call
-              (name 4:eval)
-              (args
-                (lookup
-                  (group
-                    (name 4:expr))
-                  (name 4:left))))
-            (call
-              (name 4:eval)
-              (args
-                (lookup
-                  (group
-                    (name 4:expr))
-                  (name 5:right))))))))
+        (expr
+          (call
+            (name 1:-)
+            (args
+              (call
+                (name 4:eval)
+                (args
+                  (expr
+                    (lookup
+                      (group
+                        (name 4:expr))
+                      (name 4:left)))))
+              (call
+                (name 4:eval)
+                (args
+                  (expr
+                    (lookup
+                      (group
+                        (name 4:expr))
+                      (name 5:right))))))))))
     (struct
       {}
       (name 3:Mul)
@@ -314,23 +320,26 @@ infix_parse
         (left_arrow)
         (name 1:E))
       (body
-        (call
-          (name 1:*)
-          (args
-            (call
-              (name 4:eval)
-              (args
-                (lookup
-                  (group
-                    (name 4:expr))
-                  (name 4:left))))
-            (call
-              (name 4:eval)
-              (args
-                (lookup
-                  (group
-                    (name 4:expr))
-                  (name 5:right))))))))
+        (expr
+          (call
+            (name 1:*)
+            (args
+              (call
+                (name 4:eval)
+                (args
+                  (expr
+                    (lookup
+                      (group
+                        (name 4:expr))
+                      (name 4:left)))))
+              (call
+                (name 4:eval)
+                (args
+                  (expr
+                    (lookup
+                      (group
+                        (name 4:expr))
+                      (name 5:right))))))))))
     (function
       {}
       (type_params)
@@ -347,10 +356,12 @@ infix_parse
         (name 3:Int))
       (where)
       (body
-        (call
-          (name 4:eval)
-          (args
-            (name 1:x)))))
+        (expr
+          (call
+            (name 4:eval)
+            (args
+              (expr
+                (name 1:x)))))))
     (function
       {}
       (type_params)
@@ -367,7 +378,9 @@ infix_parse
         (name 3:Int))
       (where)
       (body
-        (call
-          (name 4:eval)
-          (args
-            (name 1:x)))))))
+        (expr
+          (call
+            (name 4:eval)
+            (args
+              (expr
+                (name 1:x)))))))))

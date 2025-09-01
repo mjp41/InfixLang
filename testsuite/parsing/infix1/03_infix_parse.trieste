@@ -69,15 +69,19 @@ infix_parse
         (name 3:Int))
       (where)
       (body
-        (call
-          (name 1:+)
-          (args
-            (call
-              (name 1:+)
-              (args
-                (name 1:a)
-                (name 1:b)))
-            (name 1:c)))))
+        (expr
+          (call
+            (name 1:+)
+            (args
+              (call
+                (name 1:+)
+                (args
+                  (expr
+                    (name 1:a))
+                  (expr
+                    (name 1:b))))
+              (expr
+                (name 1:c)))))))
     (function
       {}
       (type_params)
@@ -106,15 +110,20 @@ infix_parse
         (name 3:Int))
       (where)
       (body
-        (call
-          (name 1:+)
-          (args
-            (call
-              (name 1:+)
-              (args
-                (name 1:a)
-                (name 1:b)))
-            (name 1:c)))))
+        (expr
+          (call
+            (name 1:+)
+            (args
+              (expr
+                (call
+                  (name 1:+)
+                  (args
+                    (expr
+                      (name 1:a))
+                    (expr
+                      (name 1:b)))))
+              (expr
+                (name 1:c)))))))
     (function
       {}
       (type_params)
@@ -143,12 +152,17 @@ infix_parse
         (name 3:Int))
       (where)
       (body
-        (call
-          (name 1:+)
-          (args
-            (name 1:a)
-            (call
-              (name 1:+)
-              (args
-                (name 1:b)
-                (name 1:c)))))))))
+        (expr
+          (call
+            (name 1:+)
+            (args
+              (expr
+                (name 1:a))
+              (expr
+                (call
+                  (name 1:+)
+                  (args
+                    (expr
+                      (name 1:b))
+                    (expr
+                      (name 1:c))))))))))))

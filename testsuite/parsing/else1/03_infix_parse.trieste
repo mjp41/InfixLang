@@ -91,4 +91,5 @@ infix_parse
         (name 1:P))
       (where)
       (body
-        (name 5:value)))))
+        (expr
+          (name 5:value))))))

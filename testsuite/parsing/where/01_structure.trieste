@@ -13,6 +13,22 @@ structure
       (name 5:False)
       (type_params)
       (fields))
+    (struct
+      {}
+      (name 4:None)
+      (type_params)
+      (fields))
+    (struct
+      {}
+      (name 4:Some)
+      (type_params
+        (group
+          (name 1:P)))
+      (fields
+        (field
+          (name 5:value)
+          (type
+            (name 1:P)))))
     (type_alias
       (name 4:Bool)
       (type_params)
@@ -31,6 +47,96 @@ structure
           (name 5:value)
           (type
             (name 1:P)))))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P)))
+      (name 2:if)
+      (paren
+        (name 1:b)
+        (Colon)
+        (name 4:True))
+      (paren
+        (name 4:then)
+        (Colon)
+        (hat)
+        (name 1:P))
+      (Colon)
+      (name 6:Option)
+      (square
+        (group
+          (name 1:P)))
+      (eq)
+      (name 4:Some)
+      (paren
+        (name 4:then)))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P)))
+      (name 2:if)
+      (paren
+        (name 1:b)
+        (Colon)
+        (name 5:False))
+      (paren
+        (name 4:then)
+        (Colon)
+        (hat)
+        (name 1:P))
+      (Colon)
+      (name 6:Option)
+      (square
+        (group
+          (name 1:P)))
+      (eq)
+      (name 4:None))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P)))
+      (paren
+        (name 4:prev)
+        (Colon)
+        (name 4:None))
+      (name 4:else)
+      (paren
+        (name 4:next)
+        (Colon)
+        (hat)
+        (name 1:P))
+      (Colon)
+      (name 1:P)
+      (eq)
+      (name 4:next))
+    (function
+      {}
+      (square
+        (group
+          (name 1:P)))
+      (paren
+        (name 4:prev)
+        (Colon)
+        (name 4:Some)
+        (square
+          (group
+            (name 1:P))))
+      (name 4:else)
+      (paren
+        (name 4:next)
+        (Colon)
+        (hat)
+        (name 1:P))
+      (Colon)
+      (name 1:P)
+      (eq)
+      (lookup
+        (group
+          (name 4:prev))
+        (name 5:value)))
     (function
       {}
       (square
