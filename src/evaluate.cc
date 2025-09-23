@@ -140,9 +140,9 @@ std::vector<Pass> passes() {
 
           (T(Partial)[Partial]
            << (T(Call)[Call] << (T(Name)[Name] * T(Args)[Args]))) *
-                  (!T(Name, Partial))[Rhs] >>
+                  (!T(Name, Partial, Eq, SemiColon))[Rhs] >>
               [](auto &_) {
-                _(Args)->push_back(_[Rhs]);
+                _(Args) << _[Rhs];
 
                 auto f = _(Name)->lookup().front();
                 auto size = (f / Lhs)->size() + (f / Rhs)->size();
@@ -154,17 +154,18 @@ std::vector<Pass> passes() {
               },
 
           (T(Partial) << T(Assign)[Assign]) * (!T(Name, Partial))[Rhs] >>
-              [](auto &_) {
-                _(Assign)->push_back(_[Rhs]);
-                return _(Assign);
-              },
+              [](auto &_) { return _(Assign) << _[Rhs]; },
 
           // Unpack explicit associativity.
           (In(Assign) * ((T(Expr) << T(Assign)[Assign] * End) * End)) >>
               [](auto &_) { return Seq << *_(Assign); },
 
           (T(Partial) * T(SemiColon)) >>
-          [](auto &_) { return Error << (ErrorMsg ^ "Unexpected ';' expression not finished.") << (ErrorAst << _[SemiColon]); },
+              [](auto &_) {
+                return Error
+                       << (ErrorMsg ^ "Unexpected ';' expression not finished.")
+                       << (ErrorAst << _[SemiColon]);
+              },
 
           // Semi-colon flushes the evaluation stack.
           T(ExprStack)[ExprStack] * T(SemiColon) >>
@@ -240,18 +241,18 @@ std::vector<Pass> passes() {
                   }
                 }
 
-                if (f->type() != Function && f->type() != Struct) {
+                // TODO:  Create for type parameters?
+                if (f != Function && f != Struct) {
                   // Not a function so must be a local variable
                   // TODO Check this is valid.
                   return Seq << _(ExprStack) << (Expr << _(Name));
                 }
 
-                auto args_node = NodeDef::create(Args, v->location());
+                auto args_node = Args ^ v;
 
-                auto require_lhs_size =
-                    f->type() == Function ? (f / Lhs)->size() : 0;
+                auto require_lhs_size = f == Function ? (f / Lhs)->size() : 0;
                 if (require_lhs_size != 0) {
-                  if (_(ExprStack)->type() == Partial) {
+                  if (_(ExprStack) == Partial) {
                     return Error
                            << (ErrorMsg ^ "Cannot use:") << (ErrorAst << v)
                            << (ErrorMsg ^ "as an argument to ")
@@ -275,7 +276,7 @@ std::vector<Pass> passes() {
                   }
                 }
 
-                if (f->type() == Function) {
+                if (f == Function) {
                   auto require_rhs_size = (f / Rhs)->size();
                   if (require_rhs_size != 0)
                     return Seq << _(ExprStack)

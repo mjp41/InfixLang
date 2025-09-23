@@ -23,9 +23,9 @@ type Expr = Add[Expr] | Sub[Expr] | IntLiteral
 # This is open as uses generics.
 function eval (expr: IntLiteral) : Int = expr.value
 function[E] eval (expr: Add[E]) : Int where eval: Int <- E =
-  eval(expr.left) + eval(expr.right)
+  (eval expr.left) + (eval expr.right)
 function[E] eval (expr: Sub[E]) : Int where eval: Int <- E =
-  eval(expr.left) - eval(expr.right)
+  (eval expr.left) - (eval expr.right)
 
 
 
@@ -39,7 +39,7 @@ type Expr2 = Add[Expr2] | Sub[Expr2] | Mul[Expr2] | Int
 
 # Extend evaluation to handle multiplication
 function[E] eval (expr: Mul[E]) : Int where eval: Int <- E =
-  eval(expr.left) * eval(expr.right)
+  (eval expr.left) * (eval expr.right)
 
 # Now we have evaluation for both Expr and Expr2
 

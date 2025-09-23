@@ -101,7 +101,17 @@ type Tree[T] = TreeNode[T] | EmptyTree
 Note we need to use a union type of `Tree` to ensure that the structure can be constructed.
 
 The reader should note that we do not need a different type of `EmptyTree` for each `T`.
-This is different from the typical approach in ML or an OO language where each type of empty is distinct. 
+This is different from the typical approach in ML or an OO language where each type of empty is distinct: E.g.
+
+```ML
+datatype Tree[T] = EmptyTree | TreeNode of T * Tree[T] * Tree[T]
+```
+or in Java
+```Java
+class EmptyTree<T> implements Tree<T> { ... }
+class TreeNode<T> implements Tree<T> { T value; Tree<T> left; Tree<T> right; ... }
+```
+
 
 ## Functions
 
@@ -144,7 +154,7 @@ TODO explain
 Function can also be generic, meaning that they can accept parameters of type.  For example, we can define a function that takes two arguments of any type and returns the first as:
 
 ```
-function kay[A, B] (a: A) (b: B) : A = a
+function[A, B] kay (a: A) (b: B) : A = a
 ```
 
 ### Function with infix notation
@@ -568,7 +578,8 @@ Type checking higher-order polymorphic multi-methods
 
 Polymorphic symmetric multiple dispatch with variance
 
-
+Finally Tagless Partially Evaluated
+  Oleg Kiselyov
 
 ## Comments from Mads
 
@@ -593,6 +604,10 @@ function[P, Q] (l: List[P]) map (f: Fun[P, Q]) =
   inner l
 ```
 Then when you have something of type list, then applying an infix map will be an option.
+
+```
+l map f map g map h toString
+```
 
 This could also head down the postfix operators more
 ```
@@ -665,3 +680,195 @@ which would become
 ```
 
 Do similar for strings and other literal types.
+
+
+## Comments from Sylvan
+
+Can you actually resolve enough in advance to make this work?
+
+Defaults and constructing template parameters:
+
+```
+   function[T] f : T = T()
+```
+
+This would require a default constructor for T, and also some way to constrain T?
+
+Is there a more sensible example?
+
+
+What about default parameters for functions?
+
+```
+  range (start: Int) (end: Int) with (step: Int = 1)
+```
+
+The parser cannot handle this at the moment.
+
+We could add syntax for providing named parameters to functions to override defaults?
+
+```
+  range 0 10 with step=2
+``` 
+
+Sylvan's example was something like
+```
+function[T] range (start: T) (end: T) with (step: T = T 1)
+```
+We could do something like
+```
+  function[T] range (start: T) (end: T) with (step: T = T 1) where (+: T -> T <- T) & (T: T <- u32) = 
+    function inner (current: T) =
+      if current >= end then
+        EmptyList
+      else
+        ListNode current (inner (current + step))
+    inner start
+```
+Here `(T: T <- u32)` is a create syntax for a type. 
+
+We only need the `where` on the default for the construction from `1`?
+
+```
+  function[T] range (start: T) (end: T) with (step: T = T 1 where T: T <- u32) where (+: T -> T <- T) = 
+    function inner (current: T) =
+      if current >= end then
+        EmptyList
+      else
+        ListNode current (inner (current + step))
+    inner start
+```
+
+
+Could also do
+```
+  function[T] range (start: T) (end: T) with (step: T = 1 where T == u32) where (+: T -> T <- T) = 
+    function inner (current: T) =
+      if current >= end then
+        EmptyList
+      else
+        ListNode current (inner (current + step))
+    inner start
+```
+
+Use would be something like
+```
+  range 0 10
+  range 0.0 1.0 with step=0.1
+```
+
+
+
+Path dependent types?
+
+Examples
+  Iterators in C++
+  Red-black tree in snmalloc
+  Configuration for snmalloc
+
+
+Perhaps need a constraint
+```
+   T::Values : type
+```
+To specify that a type has an associated type?  This could be implied by the presence of this associated type in a where clause?
+
+
+What would an iterator look like?
+
+```
+type Iterable[C] =
+  (current: C::Iterator -> Option[C::Values]) &
+  (next: C::Iterator -> C::Iterator) &
+  (iterator: C -> C::Iterator)
+```
+
+```
+function[C, Acc]
+    (collection: C)
+  fold 
+    (f: Fun[(C::Values, Acc), Acc])
+  with
+    (init: Acc = Acc::default where Acc::default: Acc)
+  : Acc 
+  where Iterable[C] =
+  function inner (it: C::Iterator) (acc: Acc) : Acc =
+    match it current with
+      None => acc
+      v: Some[C::Values] => 
+        inner (it next) (f @ (v, acc))
+  inner (collection.iterator) init
+```
+
+```
+struct List[T]
+  type Values = T
+  type Iterator
+  function default : List[T] = <empty array>
+  function iterator (list: List[T]) : Iterator = 
+    List[T]::Iterator (ref list.head)
+  
+  function (it: Iterator) current : Option[List[T]::Values] =
+    match it.current 
+      ln: ListNode => Some ln.value
+      el: EmptyList => None
+
+  function next (it: Iterator) : Iterator=
+    let current = load it.current
+    match current 
+      ln: ListNode => it.current = ref ln.next
+      el: EmptyList => 
+
+  function insert (it: Iterator) (value: T) =
+    let new_node = ListNode value it.current.next
+    it.current.next = new_node
+
+  function delete (it: Iterator) =
+    let current = it.current
+    match current 
+      ln: ListNode => store it.current ln.next # TODO ref cases are hard.
+      el: EmptyList =>
+private
+  struct EmptyList
+  struct ListNode
+    value: T
+    next: L
+  type L = EmptyList | ListNode
+
+  head: L
+  struct Iterator
+    current: ref[L]
+```
+
+Then we can do
+```
+  coll fold ((v, acc) -> v + acc) with init=0
+```
+
+
+
+#### References built in type
+
+```
+struct ref[T]
+  intrinsic
+
+function load (r: ref[T]) : T = intrinsic
+
+function store (r: ref[T]) (v: T) : T = intrinsic
+
+```
+
+Oh, can we do ML syntax for deref and assign?
+
+```
+function ! (r: ref[T]) : T = load r
+function (r: ref[T]) := (v: T) : T = store r v
+```
+Not sure parsers can do `:=` I think `:` is reserved for type annotations.
+
+Some for of reference type class
+```
+type Reference[R] = (load : R::Values <- R) & (store : R::Values <- R <- R::Values)
+```
+
