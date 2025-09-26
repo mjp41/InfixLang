@@ -181,18 +181,25 @@ The set of strings that are valid infix, prefix and postfix function names are e
 
 In the following we will assume `+` and `++` are integer addition and string concatenation, respectively.
 
+This also allows us to define functions that are prefix or postfix operators.
+For example,
+```
+function (a: Int) toString : String = int_to_string a
+```
+defines a postfix operator `toString` that converts an integer to a string.
+
 ### Function with union types
 
 One the key features of the language is that there can be multiple functions with the same name, and the compiler will determine which function to call based on the types of the arguments.  This may even involve dynamic case analysis of the arguments at runtime.
 
 Consider our original type of `IntOrString`, we could define two functions to convert this to a string:
 ```
-function toString (a: Int) : String = int_to_string a
-function toString (s: String) : String = s
+function (a: Int) toString : String = int_to_string a
+function (s: String) toString : String = s
 ```
 with these functions in scope, we actually get an additional function of type
 ```
-function f (a: Int | String) : String = toString a
+function f (a: Int | String) : String = a toString
 ```
 In this function, the call to `toString` will determine, which function to call using the dynamic type of the argument, a.
 
@@ -202,13 +209,13 @@ We can define a function that counts the number of nodes in a tree as follows:
 ```
 function count (tree: EmptyTree) : Int = 0
 function[T] count (tree: TreeNode[T]) : Int =
-  1 + count(tree.left) + count(tree.right)
+  1 + (count tree.left) + (count tree.right)
 ```
 
 This function has two definitions: one for `EmptyTree` and one for `TreeNode[T]`.
 The compiler will determine which function to call based on the type of the argument passed to the function.
 
-Inside the body `1 + count(tree.left) + count(tree.right)` is a recursive call to the `count` function,
+Inside the body `1 + (count tree.left) + (count tree.right)` is a recursive call to the `count` function,
 which will again dispatch to the appropriate definition based on the dynamic type of `tree.left` and `tree.right`.
 
 This combination of union types and function overloading allows for powerful and flexible code that can handle a wide variety of cases without needing explicit type checks or pattern matching.
@@ -221,17 +228,17 @@ For instance, we can define a `toString` function on the previous tree type in t
 
 The first case is simple 
 ```
-function toString (e: EmptyTree) : String = "[]"
+function (e: EmptyTree) toString : String = "[]"
 ```
 We provide a string that represents the empty tree.
 
 The second case requires the `toString` function to be defined for the type `T`, so that we can print the nodes of the tree:
 ```
-function[T] toString (e: TreeNode[T]) : String where toString: String <- T =
-  toString(e.value) ++ "[" ++ toString(e.left) ++ ", " ++ toString(e.right) ++ "]"
+function[T] (e: TreeNode[T]) toString : String where toString: T -> String =
+  (e.value toString) ++ "[" ++ (e.left toString) ++ ", " ++ (e.right toString) ++ "]"
 ```
 
-This is like typeclasses in that we require the caller to provide a witness for the
+This is like type-classes in that we require the caller to provide a witness for the
 `toString` function for the specific type `T` and returns a `String`.
 The syntax for types is a little different to other languages as the arguments can be provided from both the left and right.
 Hence, with this we can call `toString` on a `Tree[Tree[IntOrString]]`.
@@ -246,7 +253,7 @@ For example,
 Bool -> Bool <- Int
 ```
 is a signature of a function that takes two arguments, a boolean from the left, and an integer from the right, and returns a boolean.
-With this syntax the standard functon arrows are backwards to languages like ML.
+With this syntax the standard function arrows are backwards to languages like ML.
 
 
 We can define equality for the tree structure as follows:
@@ -335,24 +342,19 @@ This allows us to extend the language with new expression types without needing 
 Similarly, we can perform `toString` behaviour for the expression types:
 
 ```
-function toString (e: IntLiteral) : String = itoa(e.value)
+function (e: IntLiteral) toString : String = itoa(e.value)
 
-function[E] toString (e: Add[E]) : String where toString: String <- E =
-  toString(e.left) ++ " + " ++ toString(e.right)
+function[E] (e: Add[E]) toString : String where toString: E -> String =
+  (e.left toString) ++ " + " ++ (e.right toString)
 
-function[E] toString (e: Sub[E]) : String where toString: String <- E =
-  toString(e.left) ++ " - " ++ toString(e.right)
+function[E] (e: Sub[E]) toString : String where toString: E -> String =
+  (e.left toString) ++ " - " ++ (e.right toString)
 
-function[E] toString (e: Mul[E]) : String where toString: String <- E =
-  toString(e.left) ++ " * " ++ toString(e.right)
+function[E] (e: Mul[E]) toString : String where toString: E -> String =
+  (e.left toString) ++ " * " ++ (e.right toString)
 ```
 
 This provides a `toString` for both `Expr` and `Expr2` types.
-
-
-add: R -> R <- R
-toString: String <- E
-
 
 
 ##  Modularity
@@ -871,4 +873,127 @@ Some for of reference type class
 ```
 type Reference[R] = (load : R::Values <- R) & (store : R::Values <- R <- R::Values)
 ```
+
+
+
+### Iterator fusion
+
+The following could be optimised into a single pass.
+```
+x map f map g filter p map h filter q toList
+```
+The single pass would look something like
+
+```
+function[T,U] lift (f: Fun[T,U]) : Fun[T, Option[U]] = (x => Some (f @ x))
+function[T] lift_pred (p: Fun[T, Bool]) : Fun[T, Option[T]] = (x => if (p @ x) then Some x else None)
+
+function[T, U] (o: None) >> (f: Fun[T, Option[U]]) : Option[U] = None
+function[T, U] (o: Some[T]) >> (f: Fun[T, Option[U]]) : Option[U] = f @ o.value
+
+function[T,S,U] compose (f: Fun[S, Option[T]]) (g: Fun[T, Option[U]]) : Fun[S, Option[U]]
+  = x => f @ x >> g
+
+module IterTools
+  type IteratorTrait[I] = (next: I -> Bool) & (current: I -> I::Values) & (I::Values :  type)
+
+  type Iterator[I,U]
+  
+  function (iter: Iterator[I,U]) next: Bool =
+    if (iter.current next)
+      match (iter.partialFunction @ (iter.current current)) 
+        None => iter next
+        Some v => true
+    else
+      false
+
+  function (iter: Iterator[I,U]) current: U =
+    (iter.partialFunction @ (iter.current current)) 
+    else
+      error "Iterator in invalid state"
+
+  function[I] (iter: I) exists (p: Fun[I::Values, Bool]) : Bool where IteratorTrait[I] =
+    if iter next then
+      let c = iter current
+      if p @ c then
+        Some c
+      else
+        iter exists p
+    else
+      None
+
+  function[I,U] (i: I) map_filter (f: Fun[I::Values, Option[U]]) : Iterator[I, U] =
+    Iterator i f
+
+  function[I,T,U] (i: Iterator[I,T]) map (f: Fun[T, U]) : Iterator[I,U] =
+    Iterator i.current (lift f >> i.partialFunction)
+
+  function[I,T] (i: Iterator[I,T]) filter (p: Fun[T, Bool]) : Iterator[I,T] =
+    Iterator i.current (lift_pred p >> i.partialFunction)
+
+  ## Need to specify this doesn't overlap with the concrete cases above?
+  ## Uses != in the type is this crazy
+  ## Alternative use a notion of default.  This means other packages can provide there own notion of map and filter.
+  ## but get these if they don't
+  function[I,T,U] (i: I) map (f: Fun[T,U]): Iterator[I,U] where IteratorTrait[I] & (I != Iterator[_,_]) =
+    i map_filter (lift f)
+
+  function[I,T] (i: I) filter (p: Fun[T,Bool]) : Iterator[I,T] where IteratorTrait[I] & (I != Iterator[_,_]) =
+    i map_filter (lift_pred p)
+
+private
+  struct Iterator[I,U] where IteratorTrait[I]
+    type Values = U
+    current: I
+    partialFunction: Fun[I::Values, Option[U]]
+
+
+
+struct RangeIterator
+  current: Int
+  last: Int
+  step: Int
+  type Values = Int
+
+function (ri: RangeIterator) next : Bool =
+  if ri.current + step > ri.last then
+    false
+  else
+    ri.current = ri.current + step
+    true
+
+function (ri: RangeIterator) current : Int = ri.current
+
+function (start: Int) to (end: Int) with (step: Int = 1) : RangeIterator =
+  RangeIterator (start - step) end step
+```
+
+
+
+
+## Refinement types?
+
+Could we use expression of type bool as refinement types for matching?
+
+```
+function (a: Int { _ == 0 }) ! : Int = 1
+function (a: Int { _ > 0 }) ! : Int = (a-1)! * a
+```
+
+This feels like a super advanced feature that could do nice pattern matching.
+
+
+
+## Defaults
+
+We can provide default implementations for functions that can be overridden by more specific implementations.
+This leads to compact definitions for some functions like `and` and `or`.
+```
+default function (a: Bool) or (b: Bool): Bool = True
+function (a: False) or (b: False): Bool = False
+
+default function (a: Bool) and (b: Bool): Bool = False
+function (a: True) and (b: True): Bool = True
+```
+
 
