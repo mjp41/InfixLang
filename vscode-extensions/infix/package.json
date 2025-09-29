@@ -1,0 +1,35 @@
+{
+  "name": "infix-language-support",
+  "displayName": "Infix Language Support",
+  "description": "Syntax highlighting for the Infix programming language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "infix",
+        "aliases": [
+          "Infix",
+          "infix"
+        ],
+        "extensions": [
+          ".infix",
+          ".ifx"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "infix",
+        "scopeName": "source.infix",
+        "path": "./syntaxes/infix.tmLanguage.json"
+      }
+    ]
+  }
+}

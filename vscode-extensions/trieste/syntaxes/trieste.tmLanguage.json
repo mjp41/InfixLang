@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Trieste",
+  "scopeName": "source.trieste",
+  "patterns": [
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#node-labels"
+    },
+    {
+      "include": "#punctuation"
+    }
+  ],
+  "repository": {
+    "strings": {
+      "name": "string.quoted.trieste",
+      "match": "(\\d+):(.*[^)])(?=\\)+$)",
+      "captures": {
+        "1": {
+          "name": "constant.numeric.trieste"
+        },
+        "2": {
+          "name": "string.quoted.trieste"
+        }
+      }
+    },
+    "node-labels": {
+      "patterns": [
+        {
+          "name": "entity.name.function.trieste",
+          "match": "(?<=\\()\\s*([a-zA-Z_][a-zA-Z0-9_]*)",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.trieste"
+            }
+          }
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.section.group.trieste",
+          "match": "[\\(\\)]"
+        },
+        {
+          "name": "punctuation.section.braces.trieste", 
+          "match": "[\\{\\}]"
+        },
+        {
+          "name": "punctuation.section.brackets.trieste",
+          "match": "[\\[\\]]"
+        }
+      ]
+    }
+  }
+}
