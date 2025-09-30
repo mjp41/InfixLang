@@ -21,46 +21,14 @@ This directory contains VS Code extensions for syntax highlighting and language 
   - Support for length-prefixed strings
   - Built-in color theme
 
-## Building Extensions
+## Workspace Installation
 
-### Prerequisites
-Install the Visual Studio Code Extension Manager:
-```bash
-npm install -g vsce
-```
+The extensions are automatically available in this workspace via `.vscode/extensions/`. 
 
-### Build VSIX Packages
-```bash
-# Build both extensions
-./build-extensions.sh
+No additional setup is required - just open `.infix` or `.trieste` files and enjoy syntax highlighting!
 
-# Or use npm script
-npm run build
-```
+## Extension Structure
 
-This creates VSIX files in the `dist/` directory:
-- `infix-language-support.vsix`
-- `trieste-syntax.vsix`
-
-### Installing Extensions
-
-#### Global Installation
-```bash
-code --install-extension dist/infix-language-support.vsix
-code --install-extension dist/trieste-syntax.vsix
-```
-
-#### Workspace-Local Installation
-The extensions are already installed locally in `.vscode/extensions/` for this workspace.
-
-## Development
-
-### Testing Changes
-1. Make changes to extension files
-2. Rebuild with `./build-extensions.sh`
-3. Reload VS Code window (Ctrl+Shift+P → "Developer: Reload Window")
-
-### Extension Structure
 Each extension follows VS Code extension conventions:
 ```
 extension-name/
@@ -72,16 +40,15 @@ extension-name/
     └── *-colors.json      # Color theme
 ```
 
-## Distribution
+## Development
 
-The built VSIX files can be:
-- Installed locally using `code --install-extension`
-- Shared with team members
-- Published to the VS Code Marketplace
-- Distributed via version control
+### Testing Changes
+1. Make changes to extension files in this directory
+2. Copy changes to `.vscode/extensions/` if needed
+3. Reload VS Code window (Ctrl+Shift+P → "Developer: Reload Window")
 
-## Version Control
-
-Both the source extensions and workspace-local copies are tracked in Git:
-- Source: `vscode-extensions/`
-- Workspace: `.vscode/extensions/`
+### Sharing Extensions
+To share with others, they can:
+1. Copy the `infix/` and/or `trieste/` directories to their workspace's `.vscode/extensions/`
+2. Reload VS Code
+3. Extensions will be automatically available for their workspace
