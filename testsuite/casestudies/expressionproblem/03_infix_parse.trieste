@@ -197,18 +197,18 @@ infix_parse
           (call
             (name 1:+)
             (args
-              (call
-                (name 4:eval)
-                (args
-                  (expr
+              (expr
+                (call
+                  (name 4:eval)
+                  (args
                     (lookup
                       (name 4:left)
                       (args
                         (name 4:expr))))))
-              (call
-                (name 4:eval)
-                (args
-                  (expr
+              (expr
+                (call
+                  (name 4:eval)
+                  (args
                     (lookup
                       (name 5:right)
                       (args
@@ -243,18 +243,18 @@ infix_parse
           (call
             (name 1:-)
             (args
-              (call
-                (name 4:eval)
-                (args
-                  (expr
+              (expr
+                (call
+                  (name 4:eval)
+                  (args
                     (lookup
                       (name 4:left)
                       (args
                         (name 4:expr))))))
-              (call
-                (name 4:eval)
-                (args
-                  (expr
+              (expr
+                (call
+                  (name 4:eval)
+                  (args
                     (lookup
                       (name 5:right)
                       (args
@@ -324,18 +324,18 @@ infix_parse
           (call
             (name 1:*)
             (args
-              (call
-                (name 4:eval)
-                (args
-                  (expr
+              (expr
+                (call
+                  (name 4:eval)
+                  (args
                     (lookup
                       (name 4:left)
                       (args
                         (name 4:expr))))))
-              (call
-                (name 4:eval)
-                (args
-                  (expr
+              (expr
+                (call
+                  (name 4:eval)
+                  (args
                     (lookup
                       (name 5:right)
                       (args

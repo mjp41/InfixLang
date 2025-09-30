@@ -165,16 +165,16 @@ parse
       (eq)
       (indent
         (group
-          (name 4:eval)
           (paren
             (group
+              (name 4:eval)
               (name 4:expr)
               (dot)
               (name 4:left)))
           (name 1:+)
-          (name 4:eval)
           (paren
             (group
+              (name 4:eval)
               (name 4:expr)
               (dot)
               (name 5:right))))))
@@ -204,16 +204,16 @@ parse
       (eq)
       (indent
         (group
-          (name 4:eval)
           (paren
             (group
+              (name 4:eval)
               (name 4:expr)
               (dot)
               (name 4:left)))
           (name 1:-)
-          (name 4:eval)
           (paren
             (group
+              (name 4:eval)
               (name 4:expr)
               (dot)
               (name 5:right))))))
@@ -279,16 +279,16 @@ parse
       (eq)
       (indent
         (group
-          (name 4:eval)
           (paren
             (group
+              (name 4:eval)
               (name 4:expr)
               (dot)
               (name 4:left)))
           (name 1:*)
-          (name 4:eval)
           (paren
             (group
+              (name 4:eval)
               (name 4:expr)
               (dot)
               (name 5:right))))))

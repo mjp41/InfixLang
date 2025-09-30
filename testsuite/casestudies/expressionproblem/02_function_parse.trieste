@@ -227,15 +227,15 @@ function_parse
         (expr_stack)
         (indent
           (group
-            (name 4:eval)
             (paren
+              (name 4:eval)
               (lookup
                 (name 4:left)
                 (args
                   (name 4:expr))))
             (name 1:+)
-            (name 4:eval)
             (paren
+              (name 4:eval)
               (lookup
                 (name 5:right)
                 (args
@@ -271,15 +271,15 @@ function_parse
         (expr_stack)
         (indent
           (group
-            (name 4:eval)
             (paren
+              (name 4:eval)
               (lookup
                 (name 4:left)
                 (args
                   (name 4:expr))))
             (name 1:-)
-            (name 4:eval)
             (paren
+              (name 4:eval)
               (lookup
                 (name 5:right)
                 (args
@@ -353,15 +353,15 @@ function_parse
         (expr_stack)
         (indent
           (group
-            (name 4:eval)
             (paren
+              (name 4:eval)
               (lookup
                 (name 4:left)
                 (args
                   (name 4:expr))))
             (name 1:*)
-            (name 4:eval)
             (paren
+              (name 4:eval)
               (lookup
                 (name 5:right)
                 (args
