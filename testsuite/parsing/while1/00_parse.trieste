@@ -207,10 +207,8 @@ parse
           (indent
             (group
               (name 2:if)
-              (paren
-                (group
-                  (name 3:not)
-                  (name 1:c)))
+              (name 3:not)
+              (name 1:c)
               (indent
                 (group
                   (name 8:previous))))

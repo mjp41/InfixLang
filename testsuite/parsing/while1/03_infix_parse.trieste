@@ -250,12 +250,11 @@ infix_parse
                     (call
                       (name 2:if)
                       (args
-                        (expr
-                          (call
-                            (name 3:not)
-                            (args
-                              (expr
-                                (name 1:c)))))
+                        (call
+                          (name 3:not)
+                          (args
+                            (expr
+                              (name 1:c))))
                         (expr
                           (name 8:previous))))
                     (expr
