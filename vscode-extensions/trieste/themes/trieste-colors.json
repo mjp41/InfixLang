@@ -1,0 +1,45 @@
+{
+  "name": "Trieste Syntax Colors",
+  "type": "dark",
+  "tokenColors": [
+    {
+      "scope": "entity.name.function.trieste",
+      "settings": {
+        "foreground": "#569cd6",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "constant.numeric.trieste",
+      "settings": {
+        "foreground": "#a00000",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "string.quoted.trieste",
+      "settings": {
+        "foreground": "#d69e2e",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": "punctuation.section.group.trieste",
+      "settings": {
+        "foreground": "#ffd700"
+      }
+    },
+    {
+      "scope": "punctuation.section.braces.trieste",
+      "settings": {
+        "foreground": "#da70d6"
+      }
+    },
+    {
+      "scope": "punctuation.section.brackets.trieste",
+      "settings": {
+        "foreground": "#ffa500"
+      }
+    }
+  ]
+}

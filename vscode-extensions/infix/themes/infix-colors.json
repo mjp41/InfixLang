@@ -1,0 +1,144 @@
+{
+  "name": "Infix Syntax Colors",
+  "type": "dark",
+  "tokenColors": [
+    {
+      "scope": "keyword.declaration.infix",
+      "settings": {
+        "foreground": "#569cd6",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "entity.name.function.declaration.infix",
+      "settings": {
+        "foreground": "#dcdcaa",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "entity.name.type.declaration.infix",
+      "settings": {
+        "foreground": "#4ec9b0",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "entity.name.namespace.declaration.infix",
+      "settings": {
+        "foreground": "#4ec9b0",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "variable.name.declaration.infix",
+      "settings": {
+        "foreground": "#9cdcfe",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "entity.name.type.reference.infix",
+      "settings": {
+        "foreground": "#4ec9b0"
+      }
+    },
+    {
+      "scope": "variable.parameter.infix",
+      "settings": {
+        "foreground": "#9cdcfe"
+      }
+    },
+    {
+      "scope": "variable.other.infix",
+      "settings": {
+        "foreground": "#9cdcfe"
+      }
+    },
+    {
+      "scope": "storage.modifier.infix",
+      "settings": {
+        "foreground": "#569cd6"
+      }
+    },
+    {
+      "scope": [
+        "keyword.operator.assignment.infix",
+        "keyword.operator.arithmetic.infix",
+        "keyword.operator.comparison.infix",
+        "keyword.operator.logical.infix",
+        "keyword.operator.bitwise.infix",
+        "keyword.operator.increment.infix",
+        "keyword.operator.ternary.infix",
+        "keyword.operator.member.infix"
+      ],
+      "settings": {
+        "foreground": "#d4d4d4"
+      }
+    },
+    {
+      "scope": [
+        "constant.numeric.hex.infix",
+        "constant.numeric.octal.infix",
+        "constant.numeric.binary.infix",
+        "constant.numeric.float.infix",
+        "constant.numeric.decimal.infix"
+      ],
+      "settings": {
+        "foreground": "#b5cea8"
+      }
+    },
+    {
+      "scope": [
+        "string.quoted.double.infix",
+        "string.quoted.single.infix",
+        "string.quoted.backtick.infix"
+      ],
+      "settings": {
+        "foreground": "#ce9178"
+      }
+    },
+    {
+      "scope": "constant.character.escape.infix",
+      "settings": {
+        "foreground": "#d7ba7d"
+      }
+    },
+    {
+      "scope": "invalid.illegal.escape.infix",
+      "settings": {
+        "foreground": "#f44747"
+      }
+    },
+    {
+      "scope": [
+        "comment.line.hash.infix",
+        "comment.line.double-slash.infix",
+        "comment.block.infix"
+      ],
+      "settings": {
+        "foreground": "#6a9955",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "punctuation.terminator.infix",
+        "punctuation.separator.infix"
+      ],
+      "settings": {
+        "foreground": "#d4d4d4"
+      }
+    },
+    {
+      "scope": [
+        "punctuation.section.brackets.infix",
+        "punctuation.section.parens.infix",
+        "punctuation.section.braces.infix"
+      ],
+      "settings": {
+        "foreground": "#ffd700"
+      }
+    }
+  ]
+}

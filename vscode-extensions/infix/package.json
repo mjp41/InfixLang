@@ -30,6 +30,13 @@
         "scopeName": "source.infix",
         "path": "./syntaxes/infix.tmLanguage.json"
       }
+    ],
+    "themes": [
+      {
+        "label": "Infix Syntax Colors",
+        "uiTheme": "vs-dark",
+        "path": "./themes/infix-colors.json"
+      }
     ]
   }
 }

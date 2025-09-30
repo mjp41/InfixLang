@@ -24,6 +24,13 @@
         "scopeName": "source.trieste",
         "path": "./syntaxes/trieste.tmLanguage.json"
       }
+    ],
+    "themes": [
+      {
+        "label": "Trieste Syntax Colors",
+        "uiTheme": "vs-dark",
+        "path": "./themes/trieste-colors.json"
+      }
     ]
   }
 }
