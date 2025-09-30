@@ -5,6 +5,15 @@ This is an experiment in language design.  The aim is explore two things
 * Using only union types and dispatch on unions instead of either pattern matching or dynamic dispatch.
 * Using an early parse phase to determine the arity and infix nature of functions.
 
+## VS Code Extensions
+
+This project includes VS Code extensions for syntax highlighting:
+
+- **Infix Language Support**: Syntax highlighting for `.infix` and `.ifx` files
+- **Trieste Syntax Highlighting**: Syntax highlighting for `.trieste` AST files
+
+The extensions are automatically available in this workspace. For other workspaces, copy the extension directories from `vscode-extensions/` to `.vscode/extensions/` and reload VS Code.
+
 ## Syntax
 
 The syntax is white space sensitive and uses indentation to denote grouping.
@@ -995,5 +1004,22 @@ function (a: False) or (b: False): Bool = False
 default function (a: Bool) and (b: Bool): Bool = False
 function (a: True) and (b: True): Bool = True
 ```
+
+
+## Versioned files
+
+File should start with a version number for the language.
+
+If there isn't one, then it is assumed to be the current and a warning is issued.
+
+```
+use v1.0
+```
+
+This will allow for upgrading files to new versions of the language.
+We want transparent tools that can propose fixes if the semantics would change, so that
+previous semantics can be preserved if desired.
+
+
 
 
