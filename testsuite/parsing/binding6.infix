@@ -1,0 +1,22 @@
+# Example of binding
+
+module Module2
+  module Module3
+    function (x: Int) inc : Int = x inc # Loop to avoid definition
+
+module Module1
+  ## After resolution this should be:
+  ##   use ..::Module2
+  use Module2
+  ## After resolution this should be:
+  ##   type Foo = ..::Module2::Module3
+  type Foo = Module3
+
+module Test
+  # This brings inc into scope.
+  ## After resolution this should be:
+  ##   use ..::Module2::Module3
+  use Module1::Foo
+
+  function test (x: Int): Int =
+    x inc

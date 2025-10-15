@@ -1,0 +1,476 @@
+infix
+infix_parse
+(top
+  {}
+  (file
+    (struct
+      {}
+      (name 4:Void)
+      (type_params)
+      (fields))
+    (struct
+      {}
+      (name 4:Cell)
+      (type_params
+        (type_param
+          (name 1:P)))
+      (fields
+        (field
+          (name 5:value)
+          (type
+            (name 1:P)))))
+    (function
+      {}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 6:update)
+      (rhs
+        (param
+          (name 1:c)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 1:v)
+          (mode
+            (cbv))
+          (type
+            (name 1:P))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr
+          (assign
+            (lookup
+              (name 5:value)
+              (args
+                (name 1:c)))
+            (expr
+              (name 1:v))))))
+    (function
+      {}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 5:swap1)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr
+          (assign
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))))))
+    (function
+      {}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 5:swap2)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr
+          (assign
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))))))
+    (function
+      {}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 5:swap3)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr
+          (assign
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))))))
+    (function
+      {}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 5:assoc)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr
+          (assign
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1))))
+          (assign
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1))))
+          (assign
+            (expr
+              (assign
+                (lookup
+                  (name 5:value)
+                  (args
+                    (name 2:c1)))
+                (lookup
+                  (name 5:value)
+                  (args
+                    (name 2:c2)))))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1))))
+          (assign
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1))))
+          (assign
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (expr
+              (lookup
+                (name 5:value)
+                (args
+                  (name 2:c1))))))))
+    (function
+      {}
+      (type_params)
+      (lhs)
+      (name 6:right2)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (call
+          (name 6:right2)
+          (args
+            (expr
+              (name 2:c1))
+            (expr
+              (name 2:c2))))))
+    (function
+      {}
+      (type_params)
+      (lhs)
+      (name 4:test)
+      (rhs
+        (param
+          (name 1:c)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 3:Int)))))
+        (param
+          (name 2:i1)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 2:i2)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr
+          (assign
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (call
+              (name 6:right2)
+              (args
+                (expr
+                  (name 2:i1))
+                (expr
+                  (name 2:i2))))))))
+    (function
+      {}
+      (type_params)
+      (lhs)
+      (name 6:crazy1)
+      (rhs
+        (param
+          (name 1:c)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 3:Int)))))
+        (param
+          (name 2:i1)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 2:i2)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr
+          (assign
+            (expr
+              (name 1:c))
+            (expr
+              (assign
+                (expr
+                  (name 1:c))
+                (expr
+                  (name 2:i1)))
+              (expr
+                (name 2:i2))))
+          (assign
+            (expr
+              (name 1:c))
+            (expr
+              (assign
+                (expr
+                  (name 1:c))
+                (expr
+                  (name 2:i1)))
+              (expr
+                (name 2:i2))))
+          (assign
+            (expr
+              (name 1:c))
+            (expr
+              (assign
+                (expr
+                  (name 1:c))
+                (expr
+                  (name 2:i1)))
+              (expr
+                (name 2:i2)))))))
+    (function
+      {}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 6:failed)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr
+          (lookup
+            (name 5:value)
+            (args
+              (name 2:c1)))
+          (expr
+            (error
+              (errormsg 39:No expression for left side of equality)
+              (errorast
+                (eq)))
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (indent
+              (group
+                (eq)
+                (lookup
+                  (name 5:value)
+                  (args
+                    (name 2:c1)))))))))))

@@ -1,0 +1,10 @@
+Errors:
+Name '(name 3:inc)' is not defined
+-- binding5.infix:25:12
+           ~~~~~~~~~~~~~~~~~~~~
+  function test (x: Int): Int =
+    x inc
+~~~~~~~~~
+
+Pass infix_parse failed with 1 error!
+

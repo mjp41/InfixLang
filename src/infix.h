@@ -5,12 +5,13 @@ using namespace trieste;
 
 inline const auto Function =
     TokenDef("function", flag::lookup | flag::lookdown | flag::symtab);
-inline const auto Struct = TokenDef("struct", flag::symtab | flag::lookup);
-inline const auto Type = TokenDef("type", flag::lookup);
+inline const auto Struct = TokenDef("struct", flag::symtab | flag::lookup | flag::lookdown);
+inline const auto Type = TokenDef("type", flag::lookup | flag::lookdown);
 inline const auto TypeAlias = TokenDef("type_alias");
 inline const auto Where = TokenDef("where");
 inline const auto Module = TokenDef("module", flag::symtab | flag::lookup | flag::lookdown);
 inline const auto Eq = TokenDef("eq");
+inline const auto Use = TokenDef("use", flag::lookdown);
 inline const auto Let = TokenDef("let");
 inline const auto Or = TokenDef("or");
 inline const auto And = TokenDef("and");
@@ -18,6 +19,7 @@ inline const auto And = TokenDef("and");
 inline const auto Indent = TokenDef("indent");
 
 inline const auto Colon = TokenDef("Colon");
+inline const auto DoubleColon = TokenDef("DoubleColon");
 inline const auto SemiColon = TokenDef("SemiColon");
 inline const auto Comma = TokenDef("Comma");
 inline const auto Dot = TokenDef("dot");
@@ -47,6 +49,8 @@ inline const auto Line = TokenDef("line", flag::print);
 
 inline const auto Lhs = TokenDef("lhs");
 inline const auto Rhs = TokenDef("rhs");
+inline const auto Path = TokenDef("usepath");
+inline const auto Up = TokenDef("..");
 inline const auto True = TokenDef("true");
 inline const auto False = TokenDef("false");
 
@@ -68,7 +72,7 @@ using namespace wf::ops;
 inline const auto wf_parse_tokens =
     Group | File | Top | Name | Struct | Paren | Square | Function |
     Type | Where | Eq | Let | Or | And | Indent | Colon | Comma | Dot | Paren |
-    Square | Underscore | Arrow | Backtick | String | Hat;
+    Square | Underscore | Arrow | Backtick | String | Hat | Use | DoubleColon | Path;
 
 inline const auto wf_parser =
     (Top <<= File) | (File <<= Group++) | (Paren <<= wf_parse_tokens++) |
@@ -105,7 +109,7 @@ inline const auto wf_operator_defn =
 //   | (App <<= wf_term++)
 // ;
 
-inline const auto wf_decls = Struct | TypeAlias | Function;
+inline const auto wf_decls = Struct | TypeAlias | Function | Module | Use;
 
 inline const auto wf_term = Paren | Name | Group | Indent | Dot | Arrow | LeftArrow | Colon | Lookup | Eq | SemiColon;
 
@@ -132,6 +136,9 @@ inline const auto wf_function_parse =
   | (Fields <<= Field++)
   | (Field <<= Name * Type)[Name]
   | (Where <<= wf_term++)
+  | (Module <<= Name * Body)[Name]
+  | (Use <<= Path)[Include]
+  | (Path <<= (Name)++)
 ;
 
 

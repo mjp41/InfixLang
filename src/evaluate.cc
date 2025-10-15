@@ -3,8 +3,63 @@
 // using namespace trieste;
 
 namespace infix {
+Nodes lookup_all(Node n) {
+  Nodes result;
+  Nodes includes = n->lookup();
+
+  for (auto &inc : includes) {
+    // If not a use statement, just keep it.
+    if (inc != Use) {
+      result.push_back(inc);
+      continue;
+    }
+
+    // TODO: Initially assumed all children are just module names.
+    Node start = inc->at(0)->at(0);
+
+    bool first = true;
+    for (auto &child : *inc->at(0)) {
+      // Check the child is a module name.
+      if (child->type() == Name) {
+        // TODO Could be from earlier Use statement.
+        Nodes child_module;
+        if (first) {
+          first = false;
+          child_module = child->lookup();
+          // Filter out Use nodes
+          child_module.erase(
+              std::remove_if(child_module.begin(), child_module.end(),
+                             [](auto &n) { return n->type() == Use; }),
+              child_module.end());
+        } else {
+          child_module = start->lookdown(child->location());
+        }
+        if (child_module.empty())
+          continue;
+        if (child_module.size() > 1) {
+          // Error: module not found.
+          abort();
+        }
+        if (child_module.front() != Module) {
+          // Unhandled case: not a module.
+          // TODO: Need to handle type aliases and structs.
+          abort();
+        }
+        // TODO: Handle type parameters here.
+        start = child_module.front();
+        continue;
+      }
+      abort();
+    }
+    auto candidates = start->lookdown(n->location());
+    result.insert(result.end(), candidates.begin(), candidates.end());
+  }
+
+  return result;
+}
+
 std::vector<Pass> passes() {
-  auto Decls = T(Struct, TypeAlias, Let, Module, Function);
+  auto Decls = T(Struct, TypeAlias, Let, Module, Function, Use);
   trieste::detail::Pattern MatchType =
       (T(Name) * ~T(Square)) / (T(Paren)) / T(Group);
   auto MatchBody = T(Indent, Paren);
@@ -53,6 +108,8 @@ std::vector<Pass> passes() {
                                  << (Type << _[Body]);
               },
 
+          T(Module) << (T(Name)[Name] * (--T(Body) * Any++)[Body] * End) >>
+              [](auto &_) { return Module << _(Name) << (Body << _[Body]); },
       }};
 
   PassDef function_parse{
@@ -107,7 +164,29 @@ std::vector<Pass> passes() {
 
           In(Function) * T(Where)[Where] * (!T(Eq, Body))[Rhs] >>
               [](auto &_) { return _(Where) << _[Rhs]; },
+
+          In(Use) * (Start * T(Name)[Name]/* * ~T(Square)[TypeParam]*/) >>
+              [](auto &_) {
+                return Path << _(Name)/* << (TypeParam << _(TypeParam))*/;
+              },
+
+          In(Use) * T(Path)[Path] * T(DoubleColon) * T(Name)[Name]
+                  /* *~T(Square)[TypeParam]*/ >>
+              [](auto &_) {
+                return _(Path) << _(Name) /*<< (TypeParam << _(TypeParam))*/;
+              },
+
       }};
+
+  // Replace names used in types and uses with the fully qualified names of
+  // their definitions.
+  PassDef resolve_types{
+      "resolve_types",
+      wf_function_parse,
+      dir::topdown,
+      {
+      }};
+
 
   PassDef infix_parse{
       "infix_parse",
@@ -144,7 +223,7 @@ std::vector<Pass> passes() {
               [](auto &_) {
                 _(Args) << _[Rhs];
 
-                auto f = _(Name)->lookup().front();
+                auto f = lookup_all(_(Name)).front();
                 auto size = (f / Lhs)->size() + (f / Rhs)->size();
                 if (_(Args)->size() == size)
                   return Call << _(Name) << _(Args);
@@ -177,7 +256,7 @@ std::vector<Pass> passes() {
               [](auto &_) {
                 _(Args)->push_back(_[Rhs]);
 
-                auto f = _(Name)->lookup().front();
+                auto f = lookup_all(_(Name)).front();
                 auto size = (f / Fields)->size();
                 if (_(Args)->size() == size)
                   return Create << _(Name) << _(Args);
@@ -210,7 +289,7 @@ std::vector<Pass> passes() {
                 // Is Name a function.
 
                 const Node &v = _(Name);
-                auto defs = v->lookup();
+                auto defs = lookup_all(v);
                 if (defs.size() == 0) {
                   return Error << (ErrorMsg ^ "Name '" + std::string(v->str()) +
                                                   "' is not defined")
@@ -294,7 +373,7 @@ std::vector<Pass> passes() {
               },
       }};
 
-  return {operator_defn, function_parse, infix_parse};
+  return {operator_defn, function_parse, resolve_types, infix_parse};
 }
 
 } // namespace infix

@@ -1022,4 +1022,25 @@ previous semantics can be preserved if desired.
 
 
 
+## Monad
 
+Can we use the associate types to handle monads?
+Seems is would require higher kinded types?
+
+```
+module OptionMonad
+  type M[T] = None | Some[T]
+
+  function (x: None) >> (f: Fun[T, M[S]]) : None = None
+  function (x: Some[T]) >> (f: Fun[T, M[S]]) : M[S] = f @ x.value
+
+  function (v: T) lift : M[T] = Some v
+
+
+   >> : M[T] -> M[S] <- Fun[T, M[S]]
+```
+
+
+```
+module MonadFold
+  List[T] ->   <- Fun[T, M[S]]

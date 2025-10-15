@@ -1,0 +1,21 @@
+# This example contains a cycle if you have to resolve modules as a whole
+# It should be possible to resolve this without getting stuck in a loop
+# First T1 and T2 are resolved using `use C`, but without using 
+# `B::T1` or `A::T2`
+# Then T3 and T4 are resolved using the already resolved T1 and T2
+module C
+  struct Foo
+    struct Bar
+
+module A
+  use B::T1
+  use C
+  type T2 = Foo
+  type T4 = Bar
+
+module B
+  use A::T2
+  use C
+  type T1 = Foo
+  type T3 = Bar
+ 

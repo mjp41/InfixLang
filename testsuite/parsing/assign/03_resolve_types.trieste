@@ -1,0 +1,535 @@
+infix
+resolve_types
+(top
+  {
+    Cell = struct
+    Void = struct
+    assoc = function
+    crazy1 = function
+    failed = function
+    right2 = function
+    swap1 = function
+    swap2 = function
+    swap3 = function
+    test = function
+    update = function}
+  (file
+    (struct
+      {}
+      (name 4:Void)
+      (type_params)
+      (fields))
+    (struct
+      {
+        P = type_param
+        value = field}
+      (name 4:Cell)
+      (type_params
+        (type_param
+          (name 1:P)))
+      (fields
+        (field
+          (name 5:value)
+          (type
+            (name 1:P)))))
+    (function
+      {
+        P = type_param
+        c = param
+        v = param}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 6:update)
+      (rhs
+        (param
+          (name 1:c)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 1:v)
+          (mode
+            (cbv))
+          (type
+            (name 1:P))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 1:c)))
+            (eq)
+            (name 1:v)))))
+    (function
+      {
+        P = type_param
+        c1 = param
+        c2 = param}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 5:swap1)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (eq)
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (eq)
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))))))
+    (function
+      {
+        P = type_param
+        c1 = param
+        c2 = param}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 5:swap2)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1))))
+          (group
+            (eq)
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2))))
+          (group
+            (eq)
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))))))
+    (function
+      {
+        P = type_param
+        c1 = param
+        c2 = param}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 5:swap3)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (eq))
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (eq))
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))))))
+    (function
+      {
+        P = type_param
+        c1 = param
+        c2 = param}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 5:assoc)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (eq)
+            (paren
+              (lookup
+                (name 5:value)
+                (args
+                  (name 2:c2)))
+              (eq)
+              (lookup
+                (name 5:value)
+                (args
+                  (name 2:c1)))))
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (eq)
+            (paren
+              (paren
+                (lookup
+                  (name 5:value)
+                  (args
+                    (name 2:c2)))
+                (eq)
+                (lookup
+                  (name 5:value)
+                  (args
+                    (name 2:c1))))))
+          (group
+            (paren
+              (lookup
+                (name 5:value)
+                (args
+                  (name 2:c1)))
+              (eq)
+              (lookup
+                (name 5:value)
+                (args
+                  (name 2:c2))))
+            (eq)
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1))))
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (eq)
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c2)))
+            (eq)
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1))))
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (eq)
+            (indent
+              (group
+                (lookup
+                  (name 5:value)
+                  (args
+                    (name 2:c2)))
+                (eq)
+                (indent
+                  (group
+                    (lookup
+                      (name 5:value)
+                      (args
+                        (name 2:c1)))))))))))
+    (function
+      {
+        c1 = param
+        c2 = param}
+      (type_params)
+      (lhs)
+      (name 6:right2)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (name 6:right2)
+        (name 2:c1)
+        (name 2:c2)))
+    (function
+      {
+        c = param
+        i1 = param
+        i2 = param}
+      (type_params)
+      (lhs)
+      (name 4:test)
+      (rhs
+        (param
+          (name 1:c)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 3:Int)))))
+        (param
+          (name 2:i1)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 2:i2)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (eq)
+            (name 6:right2)
+            (name 2:i1)
+            (name 2:i2)))))
+    (function
+      {
+        c = param
+        i1 = param
+        i2 = param}
+      (type_params)
+      (lhs)
+      (name 6:crazy1)
+      (rhs
+        (param
+          (name 1:c)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 3:Int)))))
+        (param
+          (name 2:i1)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int)))
+        (param
+          (name 2:i2)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (name 1:c)
+            (eq)
+            (paren
+              (name 1:c)
+              (eq)
+              (name 2:i1)
+              (name 2:i2)))
+          (group
+            (name 1:c)
+            (eq)
+            (paren
+              (name 1:c)
+              (eq)
+              (name 2:i1)
+              (SemiColon)
+              (name 2:i2)))
+          (group
+            (name 1:c)
+            (eq)
+            (indent
+              (group
+                (name 1:c)
+                (eq)
+                (name 2:i1))
+              (group
+                (name 2:i2)))))))
+    (function
+      {
+        P = type_param
+        c1 = param
+        c2 = param}
+      (type_params
+        (type_param
+          (name 1:P)))
+      (lhs)
+      (name 6:failed)
+      (rhs
+        (param
+          (name 2:c1)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P)))))
+        (param
+          (name 2:c2)
+          (mode
+            (cbv))
+          (type
+            (name 4:Cell)
+            (square
+              (group
+                (name 1:P))))))
+      (type
+        (name 4:Void))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (lookup
+              (name 5:value)
+              (args
+                (name 2:c1)))
+            (indent
+              (group
+                (eq)
+                (lookup
+                  (name 5:value)
+                  (args
+                    (name 2:c2)))
+                (indent
+                  (group
+                    (eq)
+                    (lookup
+                      (name 5:value)
+                      (args
+                        (name 2:c1)))))))))))))

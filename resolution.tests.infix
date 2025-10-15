@@ -1,0 +1,308 @@
+########################
+module A
+  module B
+    pass
+module C
+  use A
+  type Da = B
+module D
+  use C::Da
+########################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################
+module A[T]
+  module B
+    type Foo = T
+module C
+  use A[Int]
+  type Da = B
+module D
+  use C::Da
+  type F = Foo
+########################
+module A[T]
+  module B
+    type Foo = ..::T
+module C
+  use ..::A[Int]
+  type Da = ..::A[Int]::B
+module D
+  use ..::A[Int]::B
+  type F = Int
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################
+module A[T]
+  module B
+    type Foo = T
+module C[U]
+  use A[U]
+  type Da = B
+module D[V]
+  use C[V]::Da
+  type F = Foo
+########################
+module A[T]
+  module B
+    type Foo = ..::T
+module C[U]
+  use ..::A[U]
+  type Da = ..::A[U]::B
+module D[V]
+  use ..::A[V]::B
+  type F = ..::A[V]::B::..::T
+  type F = V
+
+
+
+
+
+
+module A[T]
+  module B
+    type Foo = ..::T
+module C[U]
+  use ..::A[U]
+  type Da = ..::A[U]::B
+module D[V]
+  use ..::C[V]::Da
+  use ..::C[V]::..::A[..::C[V]::U]::B
+  use ..::A[V]::B
+  type F = ..::A[V]::B::..::T
+  type F = ..::A[V]::T
+  type F = V
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################
+module A[T]
+  module B
+    type Foo = T::F
+module C[U]
+  use A[U]
+  type Da = B
+module D[V]
+  use C[V]::Da
+  type F = Foo
+module E
+  type G = D[D[Int]]::F
+########################
+module A[T]
+  module B
+    type Foo = ..::T::F
+module C[U]
+  use ..::A[U]
+  type Da = ..::A[U]::B
+module D[V]
+  use ..::C[V]::..::A[..::C[V]::U]::B
+  use ..::A[V]::B
+  type F = ..::A[V]::B::Foo
+  type F = ..::A[V]::B::..::T::F
+  type F = ..::A[V]::T::F
+  type F = V::F
+module E
+  type G = ..::D[..::D[..::D::..::std::Int]]::F
+  type G = ..::D[..::D[..::std::Int]]::F
+  type G = ..::D[..::D[..::std::Int]]::V::F
+  type G = ..::D[..::std::Int]::F
+  type G = ..::D[..::std::Int]::V::F
+  type G = ..::std::Int::F
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################
+    module A
+      module B
+        type F[T] = List[T]
+    module C
+      use A::B
+      type G = F[Int]::Values
+########################
+    module A
+      module B
+        module F[T] from Type Alias
+          type self = ..::..::..::std::List[T]
+    module C
+      use ..::A::B
+      type G = ..::std::List[Int]::Values
+
+
+
+
+
+
+
+
+
+
+
+
+    module A
+      module B
+        module F[T]
+          type self = ..::..::..::std::List[T]
+    module C
+      use ..::A::B
+      type G = F[..::..::std::Int]::self::Values
+      type G = ..::A::B::F[..::..::std::Int]::self::Values
+      type G = ..::A::B::F[..::..::std::Int]::..::..::..::std::List[..::A::B::F[..::..::std::Int]::T]::Values
+      type G = ..::std::List[..::..::std::Int]::Values
+
+
+
+
+
+
+###########################################
+module A
+  use B
+  type Bar = Foo
+
+module B
+  use A
+  type Foo = Bar
+###########################################
+module A
+  use ..::B
+  type Bar = ..::B::Foo
+
+module B
+  use ..::A
+  type Foo = ..::A::Bar
+
+
+
+###########################################
+module A
+  use B
+  type Bar[T] = Foo[Foo[T]]
+
+module B
+  use A
+  type Foo[T] = Bar[Bar[T]]
+
+###########################################

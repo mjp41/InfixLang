@@ -1,0 +1,8 @@
+binding4.infix:10:21: unexpected DoubleColon, expected a name, square or arrow
+  type Foo = Module2::Module3
+                    ~~
+(DoubleColon)
+
+
+Errors:Pass function_parse failed with 0 error!
+

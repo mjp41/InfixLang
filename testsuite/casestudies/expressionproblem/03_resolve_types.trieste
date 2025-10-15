@@ -1,0 +1,412 @@
+infix
+resolve_types
+(top
+  {
+    * = function
+    + = function
+    - = function
+    Add = struct
+    Expr = type_alias
+    Expr2 = type_alias
+    IntLiteral = struct
+    Mul = struct
+    Sub = struct
+    abort = function
+    eval =
+      function
+      function
+      function
+      function
+    test1 = function
+    test2 = function}
+  (file
+    (struct
+      {
+        Expr = type_param
+        left = field
+        right = field}
+      (name 3:Add)
+      (type_params
+        (type_param
+          (name 4:Expr)))
+      (fields
+        (field
+          (name 4:left)
+          (type
+            (name 4:Expr)))
+        (field
+          (name 5:right)
+          (type
+            (name 4:Expr)))))
+    (struct
+      {
+        Expr = type_param
+        left = field
+        right = field}
+      (name 3:Sub)
+      (type_params
+        (type_param
+          (name 4:Expr)))
+      (fields
+        (field
+          (name 4:left)
+          (type
+            (name 4:Expr)))
+        (field
+          (name 5:right)
+          (type
+            (name 4:Expr)))))
+    (struct
+      {
+        value = field}
+      (name 10:IntLiteral)
+      (type_params)
+      (fields
+        (field
+          (name 5:value)
+          (type
+            (name 3:Int)))))
+    (function
+      {
+        T = type_param}
+      (type_params
+        (type_param
+          (name 1:T)))
+      (lhs)
+      (name 5:abort)
+      (rhs)
+      (type
+        (name 1:T))
+      (where)
+      (body
+        (expr_stack)
+        (name 5:abort)))
+    (function
+      {
+        x = param
+        y = param}
+      (type_params)
+      (lhs
+        (param
+          (name 1:x)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (name 1:+)
+      (rhs
+        (param
+          (name 1:y)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (name 5:abort)))
+    (function
+      {
+        x = param
+        y = param}
+      (type_params)
+      (lhs
+        (param
+          (name 1:x)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (name 1:-)
+      (rhs
+        (param
+          (name 1:y)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (name 5:abort)))
+    (function
+      {
+        x = param
+        y = param}
+      (type_params)
+      (lhs
+        (param
+          (name 1:x)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (name 1:*)
+      (rhs
+        (param
+          (name 1:y)
+          (mode
+            (cbv))
+          (type
+            (name 3:Int))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (name 5:abort)))
+    (type_alias
+      (name 4:Expr)
+      (type_params)
+      (type
+        (name 3:Add)
+        (square
+          (group
+            (name 4:Expr)))
+        (name 1:|)
+        (name 3:Sub)
+        (square
+          (group
+            (name 4:Expr)))
+        (name 1:|)
+        (name 10:IntLiteral)))
+    (function
+      {
+        expr = param}
+      (type_params)
+      (lhs)
+      (name 4:eval)
+      (rhs
+        (param
+          (name 4:expr)
+          (mode
+            (cbv))
+          (type
+            (name 10:IntLiteral))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (lookup
+          (name 5:value)
+          (args
+            (name 4:expr)))))
+    (function
+      {
+        E = type_param
+        expr = param}
+      (type_params
+        (type_param
+          (name 1:E)))
+      (lhs)
+      (name 4:eval)
+      (rhs
+        (param
+          (name 4:expr)
+          (mode
+            (cbv))
+          (type
+            (name 3:Add)
+            (square
+              (group
+                (name 1:E))))))
+      (type
+        (name 3:Int))
+      (where
+        (name 4:eval)
+        (Colon)
+        (name 3:Int)
+        (left_arrow)
+        (name 1:E))
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (paren
+              (name 4:eval)
+              (lookup
+                (name 4:left)
+                (args
+                  (name 4:expr))))
+            (name 1:+)
+            (paren
+              (name 4:eval)
+              (lookup
+                (name 5:right)
+                (args
+                  (name 4:expr))))))))
+    (function
+      {
+        E = type_param
+        expr = param}
+      (type_params
+        (type_param
+          (name 1:E)))
+      (lhs)
+      (name 4:eval)
+      (rhs
+        (param
+          (name 4:expr)
+          (mode
+            (cbv))
+          (type
+            (name 3:Sub)
+            (square
+              (group
+                (name 1:E))))))
+      (type
+        (name 3:Int))
+      (where
+        (name 4:eval)
+        (Colon)
+        (name 3:Int)
+        (left_arrow)
+        (name 1:E))
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (paren
+              (name 4:eval)
+              (lookup
+                (name 4:left)
+                (args
+                  (name 4:expr))))
+            (name 1:-)
+            (paren
+              (name 4:eval)
+              (lookup
+                (name 5:right)
+                (args
+                  (name 4:expr))))))))
+    (struct
+      {
+        Expr = type_param
+        left = field
+        right = field}
+      (name 3:Mul)
+      (type_params
+        (type_param
+          (name 4:Expr)))
+      (fields
+        (field
+          (name 4:left)
+          (type
+            (name 4:Expr)))
+        (field
+          (name 5:right)
+          (type
+            (name 4:Expr)))))
+    (type_alias
+      (name 5:Expr2)
+      (type_params)
+      (type
+        (name 3:Add)
+        (square
+          (group
+            (name 5:Expr2)))
+        (name 1:|)
+        (name 3:Sub)
+        (square
+          (group
+            (name 5:Expr2)))
+        (name 1:|)
+        (name 3:Mul)
+        (square
+          (group
+            (name 5:Expr2)))
+        (name 1:|)
+        (name 3:Int)))
+    (function
+      {
+        E = type_param
+        expr = param}
+      (type_params
+        (type_param
+          (name 1:E)))
+      (lhs)
+      (name 4:eval)
+      (rhs
+        (param
+          (name 4:expr)
+          (mode
+            (cbv))
+          (type
+            (name 3:Mul)
+            (square
+              (group
+                (name 1:E))))))
+      (type
+        (name 3:Int))
+      (where
+        (name 4:eval)
+        (Colon)
+        (name 3:Int)
+        (left_arrow)
+        (name 1:E))
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (paren
+              (name 4:eval)
+              (lookup
+                (name 4:left)
+                (args
+                  (name 4:expr))))
+            (name 1:*)
+            (paren
+              (name 4:eval)
+              (lookup
+                (name 5:right)
+                (args
+                  (name 4:expr))))))))
+    (function
+      {
+        x = param}
+      (type_params)
+      (lhs)
+      (name 5:test1)
+      (rhs
+        (param
+          (name 1:x)
+          (mode
+            (cbv))
+          (type
+            (name 4:Expr))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (name 4:eval)
+            (name 1:x)))))
+    (function
+      {
+        x = param}
+      (type_params)
+      (lhs)
+      (name 5:test2)
+      (rhs
+        (param
+          (name 1:x)
+          (mode
+            (cbv))
+          (type
+            (name 5:Expr2))))
+      (type
+        (name 3:Int))
+      (where)
+      (body
+        (expr_stack)
+        (indent
+          (group
+            (name 4:eval)
+            (name 1:x)))))))

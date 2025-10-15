@@ -1,0 +1,17 @@
+infix
+resolve_types
+(top
+  {
+    False = struct
+    True = struct}
+  (file
+    (struct
+      {}
+      (name 4:True)
+      (type_params)
+      (fields))
+    (struct
+      {}
+      (name 5:False)
+      (type_params)
+      (fields))))

@@ -74,6 +74,7 @@ Parse parser() {
               m.push(Group);
             },
         "\\." >> [](auto &m) { m.add(Dot); },
+        "::" >> [](auto &m) { m.add(DoubleColon); },
         ":" >> [](auto &m) { m.add(Colon); },
         ";" >> [](auto &m) { m.add(SemiColon); },
         "`" >> [](auto &m) { m.add(Backtick); },
@@ -85,6 +86,7 @@ Parse parser() {
         "let\\b" >> [](auto &m) { m.add(Let); },
         "where\\b" >> [](auto &m) { m.add(Where); },
         "module\\b" >> [](auto &m) { m.add(Module); },
+        "use\\b" >> [](auto &m) { m.add(Use); },
 
         // "\"" >> [](auto &m) {
         //   m.add(String);
