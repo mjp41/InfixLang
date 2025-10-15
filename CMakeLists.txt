@@ -30,7 +30,16 @@ FetchContent_MakeAvailable_ExcludeFromAll(trieste EXCLUDE_FROM_ALL)
 
 project(infix_lang)
 
-set (SOURCES src/main.cc src/parser.cc src/evaluate.cc)
+set (SOURCES 
+    src/main.cc 
+    src/parser.cc 
+    src/evaluate.cc 
+    src/lookup_util.cc 
+    src/operator_defn.cc 
+    src/function_parse.cc 
+    src/resolve_types.cc 
+    src/infix_parse.cc
+)
 
 add_executable(infixlang ${SOURCES})
 

@@ -144,4 +144,14 @@ inline const auto wf_function_parse =
 
 Parse parser();
 std::vector<Pass> passes();
+
+// Utility functions
+Nodes lookup_all(Node n);
+
+// PassDef factory functions
+PassDef get_operator_defn_pass();
+PassDef get_function_parse_pass();
+PassDef get_resolve_types_pass();
+PassDef get_infix_parse_pass();
+
 } // namespace infix
