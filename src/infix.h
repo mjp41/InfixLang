@@ -42,23 +42,15 @@ inline const auto Args = TokenDef("args");
 inline const auto Name = TokenDef("name", flag::print);
 inline const auto String = TokenDef("string", flag::print);
 
-inline const auto Class = TokenDef("class");
-
-inline const auto BlankLine = TokenDef("blankline", flag::print);
-inline const auto Line = TokenDef("line", flag::print);
-
 inline const auto Lhs = TokenDef("lhs");
 inline const auto Rhs = TokenDef("rhs");
 inline const auto Path = TokenDef("usepath");
 inline const auto Up = TokenDef("..");
-inline const auto True = TokenDef("true");
-inline const auto False = TokenDef("false");
 
 inline const auto TypeParam = TokenDef("type_param", flag::lookup);
 inline const auto TypeParams = TokenDef("type_params");
 inline const auto Fields = TokenDef("fields");
 inline const auto Field = TokenDef("field", flag::lookup);
-inline const auto Params = TokenDef("params");
 inline const auto Param = TokenDef("param", flag::lookup);
 inline const auto Body = TokenDef("body");
 inline const auto Expr = TokenDef("expr");
@@ -91,23 +83,6 @@ inline const auto wf_operator_defn =
     | (OperatorDef <<= Name * Lhs * Rhs)[Name]
     | (Lhs <<= Underscore++)
     | (Rhs <<= Underscore++);
-
-// inline const auto wf_term = Paren | Name | Group | App;
-
-// inline const auto wf_structure =
-//   (Top <<= File)
-//   | (File <<= Group++)
-//   | (Paren <<= wf_term++)
-//   | (Group <<= (Class | Fun | Infix | wf_term)++)
-//   | (Fun <<= Name * Params * Body)[Name]
-//   | (Infix <<= Name * Params * Body)[Name]
-//   | (Class <<= Name * Body)[Name]
-//   | (Params <<= Param++)
-//   | (Param <<= Name * Kind)[Name]
-//   | (Kind <<= Value | Lazy | Type)
-//   | (Body <<= wf_term++)
-//   | (App <<= wf_term++)
-// ;
 
 inline const auto wf_decls = Struct | TypeAlias | Function | Module | Use;
 
