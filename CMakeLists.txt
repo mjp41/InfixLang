@@ -33,12 +33,12 @@ project(infix_lang)
 set (SOURCES 
     src/main.cc 
     src/parser.cc 
-    src/evaluate.cc 
-    src/lookup_util.cc 
-    src/operator_defn.cc 
-    src/function_parse.cc 
-    src/resolve_types.cc 
-    src/infix_parse.cc
+    src/passes/pass.cc 
+    src/passes/lookup_util.cc 
+    src/passes/operator_defn.cc 
+    src/passes/function_parse.cc 
+    src/passes/resolve_types.cc 
+    src/passes/infix_parse.cc
 )
 
 add_executable(infixlang ${SOURCES})

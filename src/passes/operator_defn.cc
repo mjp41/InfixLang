@@ -1,4 +1,4 @@
-#include <infix.h>
+#include "../infix.h"
 
 namespace infix {
 
