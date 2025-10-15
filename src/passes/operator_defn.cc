@@ -4,7 +4,7 @@ namespace infix {
 
 PassDef get_operator_defn_pass() {
   auto Decls = T(Struct, TypeAlias, Let, Module, Function, Use);
-  
+
   return PassDef{
       "structure",
       wf::empty,

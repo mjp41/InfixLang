@@ -47,5 +47,7 @@ target_link_libraries(infixlang PRIVATE trieste)
 
 target_include_directories(infixlang PRIVATE src)
 
+clangformat_targets()
+
 enable_testing()
 add_subdirectory(testsuite)

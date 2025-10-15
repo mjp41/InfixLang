@@ -5,11 +5,13 @@ using namespace trieste;
 
 inline const auto Function =
     TokenDef("function", flag::lookup | flag::lookdown | flag::symtab);
-inline const auto Struct = TokenDef("struct", flag::symtab | flag::lookup | flag::lookdown);
+inline const auto Struct =
+    TokenDef("struct", flag::symtab | flag::lookup | flag::lookdown);
 inline const auto Type = TokenDef("type", flag::lookup | flag::lookdown);
 inline const auto TypeAlias = TokenDef("type_alias");
 inline const auto Where = TokenDef("where");
-inline const auto Module = TokenDef("module", flag::symtab | flag::lookup | flag::lookdown);
+inline const auto Module =
+    TokenDef("module", flag::symtab | flag::lookup | flag::lookdown);
 inline const auto Eq = TokenDef("eq");
 inline const auto Use = TokenDef("use", flag::lookdown);
 inline const auto Let = TokenDef("let");
@@ -62,9 +64,10 @@ inline const auto OperatorDef =
 
 using namespace wf::ops;
 inline const auto wf_parse_tokens =
-    Group | File | Top | Name | Struct | Paren | Square | Function |
-    Type | Where | Eq | Let | Or | And | Indent | Colon | Comma | Dot | Paren |
-    Square | Underscore | Arrow | Backtick | String | Hat | Use | DoubleColon | Path;
+    Group | File | Top | Name | Struct | Paren | Square | Function | Type |
+    Where | Eq | Let | Or | And | Indent | Colon | Comma | Dot | Paren |
+    Square | Underscore | Arrow | Backtick | String | Hat | Use | DoubleColon |
+    Path;
 
 inline const auto wf_parser =
     (Top <<= File) | (File <<= Group++) | (Paren <<= wf_parse_tokens++) |
@@ -77,45 +80,32 @@ inline const auto wf_parse_tokens_no_op =
     Square | Underscore | Arrow | Backtick | String | Hat;
 
 inline const auto wf_operator_defn =
-    (Top <<= File) | (File <<= (Group | OperatorDef)++) | (Paren <<= wf_parse_tokens_no_op++) |
-    (Square <<= wf_parse_tokens_no_op++) | (Group <<= wf_parse_tokens_no_op++) |
-    (Indent <<= wf_parse_tokens++)
-    | (OperatorDef <<= Name * Lhs * Rhs)[Name]
-    | (Lhs <<= Underscore++)
-    | (Rhs <<= Underscore++);
+    (Top <<= File) | (File <<= (Group | OperatorDef)++) |
+    (Paren <<= wf_parse_tokens_no_op++) | (Square <<= wf_parse_tokens_no_op++) |
+    (Group <<= wf_parse_tokens_no_op++) | (Indent <<= wf_parse_tokens++) |
+    (OperatorDef <<= Name * Lhs * Rhs)[Name] | (Lhs <<= Underscore++) |
+    (Rhs <<= Underscore++);
 
 inline const auto wf_decls = Struct | TypeAlias | Function | Module | Use;
 
-inline const auto wf_term = Paren | Name | Group | Indent | Dot | Arrow | LeftArrow | Colon | Lookup | Eq | SemiColon;
+inline const auto wf_term = Paren | Name | Group | Indent | Dot | Arrow |
+                            LeftArrow | Colon | Lookup | Eq | SemiColon;
 
 inline const auto wf_function_parse =
-  (Top <<= File)
-  | (File <<= wf_decls++)
-  | (Struct <<= Name * TypeParams * Fields)[Name]
-  | (TypeAlias <<= Name * TypeParams * Type)[Name]
-  | (Paren <<= (wf_decls | wf_term)++)
-  | (Indent <<= (wf_decls | wf_term)++)
-  | (Group <<= (wf_decls | wf_term)++)
-  | (Function <<= TypeParams * Lhs * Name * Rhs * Type * Where * Body)[Name]
-  | (Body <<= (ExprStack | wf_term)++)
-  | (Type <<= (Name | Square | Arrow)++)
-  | (Lhs <<= Param++)
-  | (Rhs <<= Param++)
-  | (Lookup <<= Name * Args)
-  | (Args <<= wf_term)
-  | (Param <<= Name * Mode * Type)[Name]
-  | (Mode <<= CBN | CBV)
-  | (TypeParams <<= TypeParam++)
-  | (TypeParam <<= Name)[Name]
-  | (Square <<= wf_term++)
-  | (Fields <<= Field++)
-  | (Field <<= Name * Type)[Name]
-  | (Where <<= wf_term++)
-  | (Module <<= Name * Body)[Name]
-  | (Use <<= Path)[Include]
-  | (Path <<= (Name)++)
-;
-
+    (Top <<= File) | (File <<= wf_decls++) |
+    (Struct <<= Name * TypeParams * Fields)[Name] |
+    (TypeAlias <<= Name * TypeParams * Type)[Name] |
+    (Paren <<= (wf_decls | wf_term)++) | (Indent <<= (wf_decls | wf_term)++) |
+    (Group <<= (wf_decls | wf_term)++) |
+    (Function <<= TypeParams * Lhs * Name * Rhs * Type * Where * Body)[Name] |
+    (Body <<= (ExprStack | wf_term)++) | (Type <<= (Name | Square | Arrow)++) |
+    (Lhs <<= Param++) | (Rhs <<= Param++) | (Lookup <<= Name * Args) |
+    (Args <<= wf_term) | (Param <<= Name * Mode * Type)[Name] |
+    (Mode <<= CBN | CBV) | (TypeParams <<= TypeParam++) |
+    (TypeParam <<= Name)[Name] | (Square <<= wf_term++) | (Fields <<= Field++) |
+    (Field <<= Name * Type)[Name] | (Where <<= wf_term++) |
+    (Module <<= Name * Body)[Name] | (Use <<= Path)[Include] |
+    (Path <<= (Name)++);
 
 Parse parser();
 std::vector<Pass> passes();

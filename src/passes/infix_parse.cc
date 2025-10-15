@@ -7,7 +7,7 @@ Nodes lookup_all(Node n);
 
 PassDef get_infix_parse_pass() {
   auto Decls = T(Struct, TypeAlias, Let, Module, Function, Use);
-  
+
   return PassDef{
       "infix_parse",
       wf::empty,
