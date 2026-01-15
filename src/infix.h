@@ -1,3 +1,5 @@
+#include <optional>
+
 #include <trieste/trieste.h>
 
 namespace infix {
@@ -47,7 +49,7 @@ inline const auto String = TokenDef("string", flag::print);
 inline const auto Lhs = TokenDef("lhs");
 inline const auto Rhs = TokenDef("rhs");
 inline const auto Path = TokenDef("usepath");
-inline const auto Up = TokenDef("..");
+inline const auto Up = TokenDef("../");
 
 inline const auto TypeParam = TokenDef("type_param", flag::lookup);
 inline const auto TypeParams = TokenDef("type_params");
@@ -112,6 +114,7 @@ std::vector<Pass> passes();
 
 // Utility functions
 Nodes lookup_all(Node n);
+std::optional<size_t> lookup_levels_up(Node n);
 
 // PassDef factory functions
 PassDef get_operator_defn_pass();

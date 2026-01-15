@@ -57,4 +57,27 @@ Nodes lookup_all(Node n) {
   return result;
 }
 
+std::optional<size_t> lookup_levels_up(Node n) {
+  size_t levels = 0;
+  auto scope = n->scope();
+
+  while (scope) {
+    Nodes matches;
+    scope->get_symbols(n->location(), matches,
+                       [&](auto &node) {
+                         return (node->type() & flag::lookup) &&
+                                (!(scope->type() & flag::defbeforeuse) ||
+                                 node->precedes(n));
+                       });
+
+    if (!matches.empty())
+      return levels;
+
+    scope = scope->scope();
+    ++levels;
+  }
+
+  return std::nullopt;
+}
+
 } // namespace infix

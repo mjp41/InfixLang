@@ -8,6 +8,14 @@ module C
 module D
   use C::Da
 ########################
+module A
+  module B
+    pass
+module C
+  use ..::A
+  type Da = ..::A::B
+module D
+  use ..::A::B
 
 
 
@@ -57,7 +65,7 @@ module C
   type Da = ..::A[Int]::B
 module D
   use ..::A[Int]::B
-  type F = Int
+  type F = ..::A[Int]::T
 
 
 
@@ -113,8 +121,29 @@ module C[U]
   type Da = ..::A[U]::B
 module D[V]
   use ..::A[V]::B
-  type F = ..::A[V]::B::..::T
   type F = V
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -179,6 +208,37 @@ module D[V]
 module E
   type G = D[D[Int]]::F
 ########################
+module A[T]
+  module B
+    type Foo = ..::T::F
+module C[U]
+  use ..::A[U]
+  type Da = ..::A[U]::B
+module D[V]
+  use ..::A[V]::B
+  type F = V::F
+module E
+  type G = Int::F
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module A[T]
   module B
     type Foo = ..::T::F
