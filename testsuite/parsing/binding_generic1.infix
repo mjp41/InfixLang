@@ -1,0 +1,22 @@
+// Example of binding
+
+module Outer[T1] where   T1::+ : Int -> Int <- Int
+
+  function outer_function(x: Int): Int =
+    // Brings everything the `where` clause specifies about T1 into unqualified scope.
+    use T1
+    x + x
+
+  module Inner[T2]
+    type outer_type = T1
+    type inner_type = T2
+
+module User
+  use Outer[Int]::Inner[Bool]::outer_type
+  // Equivalent to `use Int`
+  // If outer_type had a private definition, would not be accessible here.
+
+  use Outer[Int]::Inner[Bool]::inner_type
+  // Equivalent to `use Bool`
+  // If inner_type had a private definition, would not be accessible here.
+

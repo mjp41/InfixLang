@@ -1,0 +1,22 @@
+# Example of binding
+
+module Module1[T1]
+  module Module2
+    type Bar = T1
+  type Foo = Module2
+
+module Module3
+  function (x: Int) inc = x + 1
+
+module Test
+  # This brings inc into scope.
+  use Module1[Module3]::Foo::Bar
+  ##  Reduces to 
+  ##  Module1[Module3]::Module2::Bar
+  ##  Reduces to 
+  ##  Module3
+  ##  So inc is now in scope.
+
+  function test(): Int =
+    1 inc
+

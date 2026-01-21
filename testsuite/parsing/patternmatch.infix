@@ -1,0 +1,51 @@
+# struct None
+# struct Some[P]
+#   value: P
+
+# type Option[P] = Some[P] | None
+
+# function[P] (o: Option[P]) else (default: P): P =
+#   match o
+#     Some => o.value
+#     None => default
+
+# function[P] (o: Option[P]) else (default: P): P =
+#   match o
+#     Some =>
+#       o.value
+#     None =>
+#       default
+
+# function[P] (o: Option[P]) else (default: P): P =
+#   match o (Some => o.value) (None => default)
+
+# function nested (x: Option[Option[Int]]): Int =
+#   match x
+#     Some =>
+#       match x.value
+#         (y: Some) => y.value
+#         None => 0
+#     None =>
+#       0
+
+# ## Interestingly the previous function could be implemented using else
+# function nested2 (x: Option[Option[Int]]): Int =
+#   (x else None) else 0
+
+
+# ## Truth table like examples
+# function (a: Bool) and (b: Bool): Bool =
+#   match a
+#     False => False
+#     True =>
+#       match b
+#         False => False
+#         True => True
+
+# function (a: Bool) or (b: Bool): Bool =
+#   match a
+#     True => True
+#     False =>
+#       match b
+#         True => True
+#         False => False

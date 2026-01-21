@@ -1,0 +1,33 @@
+module BoolModule
+  struct True
+  struct False
+  type Bool = True | False
+
+module OptionModule
+  struct None
+  struct Some[T]
+    value: T
+  type Option[T] = None | Some[T]
+
+module IfElseModule
+  use OptionModule
+  use BoolModule
+
+  function[P] if (cond: True) (then: ^P) : Option[P] = Some then
+  function[P] if (cond: False) (then: ^P) : Option[P] = None
+
+  function (then: None) else (default: P) : P = default
+  function[P] (then: Some[P]) else (default: ^P) : P = then.value
+
+module WhileModule
+  use BoolModule
+  use IfElseModule
+  use OptionModule
+
+  function[P] while (cond: ^Bool) (body: ^P) : Option[P] =
+    function inner (def: Option[P]): Option[P] =
+      if cond
+        inner (Some body)
+      else
+        def
+    inner None
