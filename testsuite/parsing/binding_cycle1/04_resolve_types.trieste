@@ -1,0 +1,51 @@
+infix
+resolve_types
+(top
+  {
+    Int = struct
+    Module1 = module
+    Module3 = module}
+  (file
+    (struct
+      {}
+      (name 3:Int)
+      (type_params)
+      (fields))
+    (module
+      {
+        Bar = type_alias}
+      (name 7:Module3)
+      (body
+        (indent
+          (type_alias
+            (name 3:Bar)
+            (type_params)
+            (type
+              (type_lookup
+                (name 7:Module1)
+                (name 3:Foo)
+                (name 1:F)
+                (error
+                  (errormsg 23:Failed to resolve name:)
+                  (errormsg 58:  type Bar = Module1::Foo::F
+             ~~~~~~~~~~~~~~~
+))))))))
+    (module
+      {
+        Foo = type_alias}
+      (name 7:Module1)
+      (body
+        (indent
+          (type_alias
+            (name 3:Foo)
+            (type_params)
+            (type
+              (type_lookup
+                (name 7:Module3)
+                (name 3:Bar)
+                (name 1:F)
+                (error
+                  (errormsg 23:Failed to resolve name:)
+                  (errormsg 58:  type Foo = Module3::Bar::F
+             ~~~~~~~~~~~~~~~
+))))))))))

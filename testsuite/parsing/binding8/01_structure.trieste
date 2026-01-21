@@ -8,25 +8,28 @@ structure
       (name 1:C)
       (body
         (indent
-          (struct
+          (module
             {}
             (name 3:Foo)
-            (struct
-              {}
-              (name 3:Bar)
-              (type_params)
-              (fields))))))
+            (body
+              (indent
+                (module
+                  {}
+                  (name 3:Bar)
+                  (body))))))))
     (module
       {}
       (name 1:A)
       (body
         (indent
           (use
-            (name 1:B)
-            (DoubleColon)
-            (name 2:T1))
+            (type
+              (name 1:B)
+              (DoubleColon)
+              (name 2:T1)))
           (use
-            (name 1:C))
+            (type
+              (name 1:C)))
           (type_alias
             (name 2:T2)
             (type_params)
@@ -41,7 +44,22 @@ structure
       {}
       (name 1:B)
       (body
-        (error
-          (errormsg 29:Offside indentation detected!)
-          (errorast
-            (indent)))))))
+        (indent
+          (use
+            (type
+              (name 1:A)
+              (DoubleColon)
+              (name 2:T2)))
+          (use
+            (type
+              (name 1:C)))
+          (type_alias
+            (name 2:T1)
+            (type_params)
+            (type
+              (name 3:Foo)))
+          (type_alias
+            (name 2:T3)
+            (type_params)
+            (type
+              (name 3:Bar))))))))

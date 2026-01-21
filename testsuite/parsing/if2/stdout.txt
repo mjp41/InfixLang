@@ -1,0 +1,16 @@
+if2.infix:14:12: unexpected group, expected a type, 
+  : Option[P] = Some thenBranch
+           ~
+(group
+  (name 1:P))
+
+
+if2.infix:20:12: unexpected group, expected a type, 
+  : Option[P] = None
+           ~
+(group
+  (name 1:P))
+
+
+Errors:Pass parse_types failed with 0 error!
+

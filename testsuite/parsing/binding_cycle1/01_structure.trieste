@@ -1,0 +1,38 @@
+infix
+structure
+(top
+  {}
+  (file
+    (struct
+      {}
+      (name 3:Int)
+      (type_params)
+      (fields))
+    (module
+      {}
+      (name 7:Module3)
+      (body
+        (indent
+          (type_alias
+            (name 3:Bar)
+            (type_params)
+            (type
+              (name 7:Module1)
+              (DoubleColon)
+              (name 3:Foo)
+              (DoubleColon)
+              (name 1:F))))))
+    (module
+      {}
+      (name 7:Module1)
+      (body
+        (indent
+          (type_alias
+            (name 3:Foo)
+            (type_params)
+            (type
+              (name 7:Module3)
+              (DoubleColon)
+              (name 3:Bar)
+              (DoubleColon)
+              (name 1:F))))))))

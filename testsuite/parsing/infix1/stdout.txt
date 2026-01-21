@@ -1,0 +1,82 @@
+Errors:
+Failed to resolve name:
+function abort : T = abort
+                 ~
+
+----------------
+Failed to resolve name:
+function (a: Int) + (b: Int) : Int = abort
+             ~~~
+
+----------------
+Failed to resolve name:
+function (a: Int) + (b: Int) : Int = abort
+                        ~~~
+
+----------------
+Failed to resolve name:
+function (a: Int) + (b: Int) : Int = abort
+                               ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                   ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                            ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                                     ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                                           ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                   ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                            ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                                     ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                                           ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                   ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                            ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                                     ~~~
+
+----------------
+Failed to resolve name:
+function test (a : Int) (b: Int) (c: Int): Int =
+                                           ~~~
+
+Pass resolve_types failed with 16 errors!
+

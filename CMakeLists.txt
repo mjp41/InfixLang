@@ -20,7 +20,7 @@ FetchContent_MakeAvailable(cmake_utils)
 FetchContent_Declare(
   trieste
   GIT_REPOSITORY https://github.com/microsoft/trieste
-  GIT_TAG        main
+  GIT_TAG        d28fa438a32487035d49bba79c0e43b53c398d85
 )
 
 set(TRIESTE_BUILD_SAMPLES OFF)
@@ -37,6 +37,7 @@ set (SOURCES
     src/passes/lookup_util.cc 
     src/passes/operator_defn.cc 
     src/passes/function_parse.cc 
+    src/passes/parse_types.cc 
     src/passes/resolve_types.cc 
     src/passes/infix_parse.cc
 )

@@ -1,0 +1,78 @@
+infix
+function_parse
+(top
+  {
+    A = module
+    B = module
+    C = module}
+  (file
+    (module
+      {
+        Foo = module}
+      (name 1:C)
+      (body
+        (indent
+          (module
+            {
+              Bar = module}
+            (name 3:Foo)
+            (body
+              (indent
+                (module
+                  {}
+                  (name 3:Bar)
+                  (body))))))))
+    (module
+      {
+        T2 = type_alias
+        T4 = type_alias
+        include use B::T1
+        include use C}
+      (name 1:A)
+      (body
+        (indent
+          (use
+            (type
+              (name 1:B)
+              (DoubleColon)
+              (name 2:T1)))
+          (use
+            (type
+              (name 1:C)))
+          (type_alias
+            (name 2:T2)
+            (type_params)
+            (type
+              (name 3:Foo)))
+          (type_alias
+            (name 2:T4)
+            (type_params)
+            (type
+              (name 3:Bar))))))
+    (module
+      {
+        T1 = type_alias
+        T3 = type_alias
+        include use A::T2
+        include use C}
+      (name 1:B)
+      (body
+        (indent
+          (use
+            (type
+              (name 1:A)
+              (DoubleColon)
+              (name 2:T2)))
+          (use
+            (type
+              (name 1:C)))
+          (type_alias
+            (name 2:T1)
+            (type_params)
+            (type
+              (name 3:Foo)))
+          (type_alias
+            (name 2:T3)
+            (type_params)
+            (type
+              (name 3:Bar))))))))

@@ -3,6 +3,11 @@ structure
 (top
   {}
   (file
+    (struct
+      {}
+      (name 3:Int)
+      (type_params)
+      (fields))
     (module
       {}
       (name 7:Module2)
@@ -41,11 +46,12 @@ structure
       (body
         (indent
           (use
-            (name 7:Module1)
-            (DoubleColon)
-            (name 3:Foo)
-            (DoubleColon)
-            (name 7:Module3))
+            (type
+              (name 7:Module1)
+              (DoubleColon)
+              (name 3:Foo)
+              (DoubleColon)
+              (name 7:Module3)))
           (function
             {}
             (name 4:test)

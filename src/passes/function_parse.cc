@@ -55,19 +55,6 @@ PassDef get_function_parse_pass() {
 
           In(Function) * T(Where)[Where] * (!T(Eq, Body))[Rhs] >>
               [](auto &_) { return _(Where) << _[Rhs]; },
-
-          In(Use) * (Start * T(Name)[Name] /* * ~T(Square)[TypeParam]*/) >>
-              [](auto &_) {
-                return Path << _(Name) /* << (TypeParam << _(TypeParam))*/;
-              },
-
-          In(Use) * T(Path)[Path] * T(DoubleColon) * T(Name)[Name]
-              /* *~T(Square)[TypeParam]*/
-              >>
-              [](auto &_) {
-                return _(Path) << _(Name) /*<< (TypeParam << _(TypeParam))*/;
-              },
-
       }};
 }
 

@@ -35,6 +35,8 @@ inline const auto Arrow = TokenDef("arrow");
 inline const auto LeftArrow = TokenDef("left_arrow");
 inline const auto Backtick = TokenDef("Backtick");
 
+inline const auto TypeLookup = TokenDef("type_lookup");
+
 inline const auto Mode = TokenDef("mode");
 inline const auto CBN = TokenDef("cbn");
 inline const auto CBV = TokenDef("cbv");
@@ -49,7 +51,8 @@ inline const auto String = TokenDef("string", flag::print);
 inline const auto Lhs = TokenDef("lhs");
 inline const auto Rhs = TokenDef("rhs");
 inline const auto Path = TokenDef("usepath");
-inline const auto Up = TokenDef("../");
+inline const auto Parent = TokenDef("../");
+inline const auto Current = TokenDef("./");
 
 inline const auto TypeParam = TokenDef("type_param", flag::lookup);
 inline const auto TypeParams = TokenDef("type_params");
@@ -100,14 +103,14 @@ inline const auto wf_function_parse =
     (Paren <<= (wf_decls | wf_term)++) | (Indent <<= (wf_decls | wf_term)++) |
     (Group <<= (wf_decls | wf_term)++) |
     (Function <<= TypeParams * Lhs * Name * Rhs * Type * Where * Body)[Name] |
-    (Body <<= (ExprStack | wf_term)++) | (Type <<= (Name | Square | Arrow)++) |
+    (Body <<= (ExprStack | wf_term)++) | (Type <<= (Name | Square | Arrow | DoubleColon | TypeLookup)++) |
     (Lhs <<= Param++) | (Rhs <<= Param++) | (Lookup <<= Name * Args) |
     (Args <<= wf_term) | (Param <<= Name * Mode * Type)[Name] |
     (Mode <<= CBN | CBV) | (TypeParams <<= TypeParam++) |
     (TypeParam <<= Name)[Name] | (Square <<= wf_term++) | (Fields <<= Field++) |
     (Field <<= Name * Type)[Name] | (Where <<= wf_term++) |
-    (Module <<= Name * Body)[Name] | (Use <<= Path)[Include] |
-    (Path <<= (Name)++);
+    (Module <<= Name * Body)[Name] | (Use <<= Type)[Include] | 
+    (TypeLookup <<= (Name | Parent)++) | (Name <<= Type++);
 
 Parse parser();
 std::vector<Pass> passes();
@@ -119,6 +122,7 @@ std::optional<size_t> lookup_levels_up(Node n);
 // PassDef factory functions
 PassDef get_operator_defn_pass();
 PassDef get_function_parse_pass();
+PassDef get_parse_types_pass();
 PassDef get_resolve_types_pass();
 PassDef get_infix_parse_pass();
 

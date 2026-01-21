@@ -1,7 +1,9 @@
 infix
-infix_parse
+resolve_types
 (top
-  {}
+  {
+    False = struct
+    True = struct}
   (file
     (struct
       {}

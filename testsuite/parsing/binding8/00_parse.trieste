@@ -9,12 +9,12 @@ parse
       (name 1:C)
       (indent
         (group
-          (struct
+          (module
             {})
           (name 3:Foo)
           (indent
             (group
-              (struct
+              (module
                 {})
               (name 3:Bar))))))
     (group
@@ -62,5 +62,4 @@ parse
           (type_alias)
           (name 2:T3)
           (eq)
-          (name 3:Bar)))
-      (indent))))
+          (name 3:Bar))))))

@@ -2,10 +2,16 @@ infix
 function_parse
 (top
   {
+    Int = struct
     Module1 = module
     Module2 = module
     Test = module}
   (file
+    (struct
+      {}
+      (name 3:Int)
+      (type_params)
+      (fields))
     (module
       {
         Module3 = module}
@@ -52,14 +58,16 @@ function_parse
     (module
       {
         test = function
-        include use}
+        include use Module1::Foo::Module3}
       (name 4:Test)
       (body
         (indent
           (use
-            (usepath
+            (type
               (name 7:Module1)
+              (DoubleColon)
               (name 3:Foo)
+              (DoubleColon)
               (name 7:Module3)))
           (function
             {

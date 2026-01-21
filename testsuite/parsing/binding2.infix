@@ -1,4 +1,5 @@
 # Example of binding
+struct Int
 
 module Module1
   module Module3

@@ -1,7 +1,15 @@
 infix
-infix_parse
+parse_types
 (top
-  {}
+  {
+    Bool = type_alias
+    False = struct
+    None = struct
+    Some = struct
+    True = struct
+    else =
+      function
+      function}
   (file
     (struct
       {}
@@ -17,7 +25,8 @@ infix_parse
       (name 4:Bool)
       (type_params)
       (type
-        (name 4:True)
+        (type_lookup
+          (name 4:True))
         (name 1:|)
         (name 5:False)))
     (struct
@@ -26,7 +35,9 @@ infix_parse
       (type_params)
       (fields))
     (struct
-      {}
+      {
+        P = type_param
+        value = field}
       (name 4:Some)
       (type_params
         (type_param
@@ -35,9 +46,13 @@ infix_parse
         (field
           (name 5:value)
           (type
-            (name 1:P)))))
+            (type_lookup
+              (name 1:P))))))
     (function
-      {}
+      {
+        P = type_param
+        lhs = param
+        value = param}
       (type_params
         (type_param
           (name 1:P)))
@@ -47,10 +62,10 @@ infix_parse
           (mode
             (cbv))
           (type
-            (name 4:Some)
-            (square
-              (group
-                (name 1:P))))))
+            (type_lookup
+              (name 6:Some[P
+                (group
+                  (name 1:P)))))))
       (name 4:else)
       (rhs
         (param
@@ -58,17 +73,23 @@ infix_parse
           (mode
             (cbn))
           (type
-            (name 1:P))))
+            (type_lookup
+              (name 1:P)))))
       (type
-        (name 1:P))
+        (type_lookup
+          (name 1:P)))
       (where)
       (body
+        (expr_stack)
         (lookup
           (name 5:value)
           (args
             (name 3:lhs)))))
     (function
-      {}
+      {
+        P = type_param
+        lhs = param
+        value = param}
       (type_params
         (type_param
           (name 1:P)))
@@ -78,7 +99,8 @@ infix_parse
           (mode
             (cbv))
           (type
-            (name 4:None))))
+            (type_lookup
+              (name 4:None)))))
       (name 4:else)
       (rhs
         (param
@@ -86,10 +108,12 @@ infix_parse
           (mode
             (cbn))
           (type
-            (name 1:P))))
+            (type_lookup
+              (name 1:P)))))
       (type
-        (name 1:P))
+        (type_lookup
+          (name 1:P)))
       (where)
       (body
-        (expr
-          (name 5:value))))))
+        (expr_stack)
+        (name 5:value)))))

@@ -4,6 +4,10 @@ parse
   {}
   (file
     (group
+      (struct
+        {})
+      (name 3:Int))
+    (group
       (module
         {})
       (name 7:Module2)

@@ -1,0 +1,8 @@
+# Example of binding
+struct Int
+
+module Module3
+  type Bar = Module1::Foo::F
+
+module Module1
+  type Foo = Module3::Bar::F

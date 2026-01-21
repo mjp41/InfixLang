@@ -1,5 +1,5 @@
 infix
-infix_parse
+resolve_types
 (top
   {}
   (file))
